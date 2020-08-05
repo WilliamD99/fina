@@ -57,6 +57,7 @@ export default function Admin({ ...rest }) {
                   peerData={rest.peerData}
                   earning={rest.earning}
                   buy={rest.buy}
+                  handleSearch={rest.handleSymbol}
                 />
               );
             }}

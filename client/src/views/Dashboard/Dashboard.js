@@ -25,8 +25,8 @@ const useStyles = makeStyles(styles);
 
 export default function Dashboard(props) {
   const classes = useStyles();
-  const { peerData, peers, candle, earning, profile } = props;
-
+  const { peerData, peers, candle, earning, profile, handleSearch } = props;
+  console.log(candle);
   let recentStats = candle.slice(props.candle.length - 2, props.candle.length);
   let earningArr = [];
   earning.map((i) => {
@@ -59,7 +59,7 @@ export default function Dashboard(props) {
     let peerDisplay =
       peers.length > 0
         ? peers.map((v, i) => (
-            <Card key={i}>
+            <Card className="peers" onClick={() => handleSearch(v)} key={i}>
               <CardHeader color="warning" stats icon>
                 <p className={`${classes.cardCategory} peer-name`}>{v}</p>
                 <h3 className={`${classes.cardTitle} text-center`}>

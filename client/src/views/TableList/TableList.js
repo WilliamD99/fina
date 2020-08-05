@@ -9,6 +9,8 @@ import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 
+import QueueAnim from "rc-queue-anim";
+
 const styles = {
   cardCategoryWhite: {
     "&,& a,& a:hover,& a:focus": {
@@ -38,11 +40,16 @@ const styles = {
     },
   },
 };
-
 const useStyles = makeStyles(styles);
 
 export default function TableList(props) {
   const classes = useStyles();
+
+  const [checked, setChecked] = React.useState(false);
+
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
 
   const { basic } = props;
   const {
@@ -80,138 +87,156 @@ export default function TableList(props) {
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
-        <Card>
-          <CardHeader color="primary">
-            <h4
-              className={`${classes.cardTitleWhite} overview-title text-center`}
-            >
-              Overview
-            </h4>
-            <p
-              className={`${classes.cardCategoryWhite} overview-content text-center`}
-            >
-              Overview of company financial
-            </p>
-          </CardHeader>
-          <CardBody>
-            <div className="overview-table">
-              <Table
-                tableHeaderColor="primary"
-                tableData={[
-                  [
-                    "52 week range",
-                    longRange.indexOf("undefined") === -1
-                      ? longRange
-                      : "No Data",
-                  ],
-                  ["Beta", checkUndefinedFixed(beta)],
-                  ["Average Volume (3m)", checkUndefinedFixed(averageVol)],
-                  ["Market Cap", checkUndefined(marketCap)],
-                  ["Revenue", checkUndefined(revenue)],
-                ]}
-              />
-            </div>
-          </CardBody>
-        </Card>
+        <QueueAnim
+          delay={500}
+          type={["right", "left"]}
+          ease={["easeOutQuart", "easeInOutQuart"]}
+        >
+          <Card key="1">
+            <CardHeader color="primary">
+              <h4
+                className={`${classes.cardTitleWhite} overview-title text-center`}
+              >
+                Overview
+              </h4>
+              <p
+                className={`${classes.cardCategoryWhite} overview-content text-center`}
+              >
+                Overview of company financial
+              </p>
+            </CardHeader>
+            <CardBody>
+              <div className="overview-table">
+                <Table
+                  tableHeaderColor="primary"
+                  tableData={[
+                    [
+                      "52 week range",
+                      longRange.indexOf("undefined") === -1
+                        ? longRange
+                        : "No Data",
+                    ],
+                    ["Beta", checkUndefinedFixed(beta)],
+                    ["Average Volume (3m)", checkUndefinedFixed(averageVol)],
+                    ["Market Cap", checkUndefined(marketCap)],
+                    ["Revenue", checkUndefined(revenue)],
+                  ]}
+                />
+              </div>
+            </CardBody>
+          </Card>
+        </QueueAnim>
       </GridItem>
       <GridItem xs={12} sm={12} md={6}>
-        <Card>
-          <CardHeader color="primary">
-            <h4 className={`${classes.cardTitleWhite} text-center`}>
-              Balance Sheet
-            </h4>
-          </CardHeader>
-          <CardBody>
-            <div className="fina-table">
-              <Table
-                tableHeaderColor="primary"
-                tableData={[
-                  [
-                    "Quick Ratio (Quarterly)",
-                    checkUndefinedFixed(quickRationQuarterly),
-                  ],
-                  [
-                    "Current Ratio (Quarterly)",
-                    checkUndefinedFixed(currentRatioQuarterly),
-                  ],
-                  [
-                    "LT Debt to Equity (Quarterly)",
-                    checkUndefinedFixed(ltDebtToEquityQuarterly),
-                  ],
-                  [
-                    "Total Debt to Equity (Quarterly)",
-                    checkUndefinedFixed(totalDebtToTotalEquityQuarterly),
-                  ],
-                ]}
-              />
-            </div>
-          </CardBody>
-        </Card>
-        <Card>
-          <CardHeader color="primary">
-            <h4 className={`${classes.cardTitleWhite} text-center`}>
-              Cash Flow Statement
-            </h4>
-          </CardHeader>
-          <CardBody>
-            <div className="fina-table">
-              <Table
-                tableHeaderColor="primary"
-                tableData={[
-                  [
-                    "Cash Flow/Share TTM",
-                    checkUndefinedFixed(cashFlowPerShare),
-                  ],
-                  ["Revenue/Share TTM", checkUndefinedFixed(revenuePerShare)],
-                ]}
-              />
-            </div>
-          </CardBody>
-        </Card>
+        <QueueAnim
+          delay={550}
+          type={["right", "left"]}
+          ease={["easeOutQuart", "easeInOutQuart"]}
+        >
+          <Card key="2">
+            <CardHeader color="primary">
+              <h4 className={`${classes.cardTitleWhite} text-center`}>
+                Balance Sheet
+              </h4>
+            </CardHeader>
+            <CardBody>
+              <div className="fina-table">
+                <Table
+                  tableHeaderColor="primary"
+                  tableData={[
+                    [
+                      "Quick Ratio (Quarterly)",
+                      checkUndefinedFixed(quickRationQuarterly),
+                    ],
+                    [
+                      "Current Ratio (Quarterly)",
+                      checkUndefinedFixed(currentRatioQuarterly),
+                    ],
+                    [
+                      "LT Debt to Equity (Quarterly)",
+                      checkUndefinedFixed(ltDebtToEquityQuarterly),
+                    ],
+                    [
+                      "Total Debt to Equity (Quarterly)",
+                      checkUndefinedFixed(totalDebtToTotalEquityQuarterly),
+                    ],
+                  ]}
+                />
+              </div>
+            </CardBody>
+          </Card>
+          <Card key="3">
+            <CardHeader color="primary">
+              <h4 className={`${classes.cardTitleWhite} text-center`}>
+                Cash Flow Statement
+              </h4>
+            </CardHeader>
+            <CardBody>
+              <div className="fina-table">
+                <Table
+                  tableHeaderColor="primary"
+                  tableData={[
+                    [
+                      "Cash Flow/Share TTM",
+                      checkUndefinedFixed(cashFlowPerShare),
+                    ],
+                    ["Revenue/Share TTM", checkUndefinedFixed(revenuePerShare)],
+                  ]}
+                />
+              </div>
+            </CardBody>
+          </Card>
+        </QueueAnim>
       </GridItem>
       <GridItem xs={12} sm={12} md={6}>
-        <Card>
-          <CardHeader color="primary">
-            <h4 className={`${classes.cardTitleWhite} text-center`}>
-              Income Statement
-            </h4>
-          </CardHeader>
-          <CardBody>
-            <div className="fina-table">
-              <Table
-                tableHeaderColor="primary"
-                tableData={[
-                  ["Gross Margin TTM", checkUndefinedFixed(grossMargin)],
-                  [
-                    "Operating Margin TTM",
-                    checkUndefinedFixed(operatingMargin),
-                  ],
-                  ["Net Profit TTM", checkUndefinedFixed(netProfit)],
-                  ["Return on Investment TTM", checkUndefinedFixed(ROI)],
-                ]}
-              />
-            </div>
-          </CardBody>
-        </Card>
-        <Card>
-          <CardHeader color="primary">
-            <h4 className={`${classes.cardTitleWhite} text-center`}>
-              Dividends
-            </h4>
-          </CardHeader>
-          <CardBody>
-            <div className="fina-table">
-              <Table
-                tableHeaderColor="primary"
-                tableData={[
-                  ["Dividend Yield", checkUndefinedFixed(dividendYield)],
-                  ["Payout Ratio", checkUndefinedFixed(payout)],
-                  ["Dividend/Share", checkUndefinedFixed(dividendsPerShare)],
-                ]}
-              />
-            </div>
-          </CardBody>
-        </Card>
+        <QueueAnim
+          delay={600}
+          type={["right", "left"]}
+          ease={["easeOutQuart", "easeInOutQuart"]}
+        >
+          <Card key="4">
+            <CardHeader color="primary">
+              <h4 className={`${classes.cardTitleWhite} text-center`}>
+                Income Statement
+              </h4>
+            </CardHeader>
+            <CardBody>
+              <div className="fina-table">
+                <Table
+                  tableHeaderColor="primary"
+                  tableData={[
+                    ["Gross Margin TTM", checkUndefinedFixed(grossMargin)],
+                    [
+                      "Operating Margin TTM",
+                      checkUndefinedFixed(operatingMargin),
+                    ],
+                    ["Net Profit TTM", checkUndefinedFixed(netProfit)],
+                    ["Return on Investment TTM", checkUndefinedFixed(ROI)],
+                  ]}
+                />
+              </div>
+            </CardBody>
+          </Card>
+          <Card key="5">
+            <CardHeader color="primary">
+              <h4 className={`${classes.cardTitleWhite} text-center`}>
+                Dividends
+              </h4>
+            </CardHeader>
+            <CardBody>
+              <div className="fina-table">
+                <Table
+                  tableHeaderColor="primary"
+                  tableData={[
+                    ["Dividend Yield", checkUndefinedFixed(dividendYield)],
+                    ["Payout Ratio", checkUndefinedFixed(payout)],
+                    ["Dividend/Share", checkUndefinedFixed(dividendsPerShare)],
+                  ]}
+                />
+              </div>
+            </CardBody>
+          </Card>
+        </QueueAnim>
       </GridItem>
     </GridContainer>
   );

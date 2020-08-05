@@ -121,3 +121,11 @@
   background: linear-gradient(180deg, #615b5b 0%, rgba(255, 255, 255, 0) 100%),
     #c4c4c4 !important;
 }
+
+.peers {
+  cursor: pointer;
+}
+
+.peers:hover {
+  opacity: 0.9;
+}

@@ -4,7 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 // core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
-import Button from "components/CustomButtons/Button.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardAvatar from "components/Card/CardAvatar.js";
@@ -18,6 +17,8 @@ import "lazysizes/plugins/parent-fit/ls.parent-fit";
 
 import nodata from "assets/images.jpg";
 import nonew from "assets/404.jpg";
+
+import QueueAnim from "rc-queue-anim";
 
 const styles = {
   cardCategoryWhite: {
@@ -48,40 +49,51 @@ export default function UserProfile(props) {
     news.length !== 0 ? (
       news.map((content, i) => (
         <GridItem key={i} xs={12} sm={10} md={6}>
-          <Card>
-            <CardHeader>
-              {content.image !== "" ? (
-                <img
-                  className="img-fluid lazyload"
-                  src={content.image}
-                  alt="Article image"
-                />
-              ) : (
-                <img
-                  className="img-fluid lazyload"
-                  src={nonew}
-                  alt="Article image"
-                />
-              )}
-            </CardHeader>
-            <CardBody>
-              <a className="news-link" href={content.url}>
-                {content.headline}
-              </a>
-              <p>{content.summary}</p>
-            </CardBody>
-            <CardFooter>
-              <p>
-                Source:
-                <span>
-                  {" "}
-                  <a className="font-italic source-link" href={content.source}>
-                    {content.source}
-                  </a>
-                </span>
-              </p>
-            </CardFooter>
-          </Card>
+          <QueueAnim
+            key="queue"
+            delay={[i * 100, (news.length - 1 - i) * 100]}
+            type={["right", "left"]}
+            ease={["easeOutQuart", "easeInOutQuart"]}
+          >
+            <Card key={i}>
+              <QueueAnim></QueueAnim>
+              <CardHeader>
+                {content.image !== "" ? (
+                  <img
+                    className="img-fluid lazyload"
+                    src={content.image}
+                    alt="Article image"
+                  />
+                ) : (
+                  <img
+                    className="img-fluid lazyload"
+                    src={nonew}
+                    alt="Article image"
+                  />
+                )}
+              </CardHeader>
+              <CardBody>
+                <a className="news-link" href={content.url}>
+                  {content.headline}
+                </a>
+                <p>{content.summary}</p>
+              </CardBody>
+              <CardFooter>
+                <p>
+                  Source:
+                  <span>
+                    {" "}
+                    <a
+                      className="font-italic source-link"
+                      href={content.source}
+                    >
+                      {content.source}
+                    </a>
+                  </span>
+                </p>
+              </CardFooter>
+            </Card>
+          </QueueAnim>
         </GridItem>
       ))
     ) : (
@@ -96,7 +108,7 @@ export default function UserProfile(props) {
               <h4 className={classes.cardCategoryWhite}>Company News</h4>
             </CardHeader>
             <CardBody>
-              <GridContainer>{newsDisplay}</GridContainer>
+              <GridContainer key="container">{newsDisplay}</GridContainer>
             </CardBody>
           </Card>
         </GridItem>
