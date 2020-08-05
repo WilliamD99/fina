@@ -1,0 +1,123 @@
+.makeStyles-cardHeaderIcon-121,
+.makeStyles-cardTitle-109 {
+  text-align: center !important;
+}
+.PrivateHiddenCss-smDown-34 {
+  margin-right: 1rem;
+}
+
+.makeStyles-logoLink-10 {
+  text-align: center !important;
+}
+
+.incr {
+  color: green !important;
+}
+.decr {
+  color: red !important;
+}
+
+.incr,
+.decr {
+  font-size: 0.85rem !important;
+}
+
+.makeStyles-cardFooter-128 {
+  justify-content: center !important;
+}
+
+.basicChart {
+  margin-bottom: 1rem;
+}
+
+.ct-chart .ct-line {
+  stroke-width: 1px;
+}
+
+.ct-chart .ct-point {
+  stroke-width: 5px;
+}
+
+.makeStyles-cardCategory-108 {
+  text-align: center;
+}
+
+#search-setting form {
+  display: flex;
+  flex-direction: column;
+}
+
+#search-setting .MuiPaper-root {
+  width: 20vw;
+}
+
+.loading-circle {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.MuiCircularProgress-root {
+  position: absolute;
+  top: 50%;
+}
+
+.news-link {
+  font-size: 1.05rem;
+}
+
+.news-link:hover {
+  opacity: 0.8;
+}
+
+.source-link {
+  color: #555555;
+}
+
+.peer-name {
+  text-align: center;
+}
+.peer-stats {
+  justify-content: center !important;
+}
+
+.overview-table table tr td {
+  font-size: 1rem;
+}
+
+.fina-table table tr td {
+  font-size: 0.85rem;
+}
+
+.overview-title {
+  font-size: 1.35rem;
+}
+.overview-content {
+  font-size: 1.05rem;
+}
+
+.side-name {
+  text-align: center !important;
+  color: white !important;
+}
+
+#searchbox input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid black;
+  padding: 0;
+}
+
+.mixed-chart {
+  width: 100%;
+}
+
+.customied-card {
+  margin-right: 0.5rem;
+}
+
+.es-header {
+  background: linear-gradient(180deg, #615b5b 0%, rgba(255, 255, 255, 0) 100%),
+    #c4c4c4 !important;
+}
