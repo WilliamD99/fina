@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import Admin from "./Admin";
 import axios from "axios";
 
-const API_URL = process.env.NODE_ENV === "production"
-  ? 'https://YOUR_HEROKU_APP_NAME.herokuapp.com'
-  : 'http://localhost:5000';
+const API_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://YOUR_HEROKU_APP_NAME.herokuapp.com"
+    : "http://localhost:5000";
 
 export default class DC extends Component {
   state = {
@@ -18,45 +19,45 @@ export default class DC extends Component {
     this.setState({ search: e });
   };
 
-  quoteRoute = `${API_URL}/quote`;
+  quoteRoute = `/quote`;
 
-  candleRequest = axios.get(`${API_URL}/candle`, {
+  candleRequest = axios.get(`/candle`, {
     headers: {
       comp: this.state.search,
     },
   });
-  profileRequest = axios.get(`${API_URL}/profile`, {
+  profileRequest = axios.get(`/profile`, {
     headers: {
       comp: this.state.search,
     },
   });
-  symbolsRequest = axios.get(`${API_URL}/symbols`, {
+  symbolsRequest = axios.get(`/symbols`, {
     headers: {
       floor: this.state.floor,
     },
   });
-  floorsRequest = axios.get(`${API_URL}/floors`);
-  peerRequest = axios.get(`${API_URL}/peers`, {
+  floorsRequest = axios.get(`/floors`);
+  peerRequest = axios.get(`/peers`, {
     headers: {
       comp: this.state.search,
     },
   });
-  newsRequest = axios.get(`${API_URL}/news`, {
+  newsRequest = axios.get(`/news`, {
     headers: {
       comp: this.state.search,
     },
   });
-  basicRequest = axios.get(`${API_URL}/basic`, {
+  basicRequest = axios.get(`/basic`, {
     headers: {
       comp: this.state.search,
     },
   });
-  buyRequest = axios.get(`${API_URL}/buy`, {
+  buyRequest = axios.get(`/buy`, {
     headers: {
       comp: this.state.search,
     },
   });
-  earningRequest = axios.get(`${API_URL}/earn`, {
+  earningRequest = axios.get(`/earn`, {
     headers: {
       comp: this.state.search,
     },
@@ -149,37 +150,37 @@ export default class DC extends Component {
     //   );
     // } else if (prevState.search !== this.state.search) {
     if (prevState.search !== this.state.search) {
-      let candleRequest = axios.get(`${API_URL}/candle`, {
+      let candleRequest = axios.get(`/candle`, {
         headers: {
           comp: this.state.search,
         },
       });
-      let profileRequest = axios.get(`${API_URL}/profile`, {
+      let profileRequest = axios.get(`/profile`, {
         headers: {
           comp: this.state.search,
         },
       });
-      let peerRequest = axios.get(`${API_URL}/peers`, {
+      let peerRequest = axios.get(`/peers`, {
         headers: {
           comp: this.state.search,
         },
       });
-      let newsRequest = axios.get(`${API_URL}/news`, {
+      let newsRequest = axios.get(`/news`, {
         headers: {
           comp: this.state.search,
         },
       });
-      let basicRequest = axios.get(`${API_URL}/basic`, {
+      let basicRequest = axios.get(`/basic`, {
         headers: {
           comp: this.state.search,
         },
       });
-      let buyRequest = axios.get(`${API_URL}/buy`, {
+      let buyRequest = axios.get(`/buy`, {
         headers: {
           comp: this.state.search,
         },
       });
-      let earningRequest = axios.get(`${API_URL}/earn`, {
+      let earningRequest = axios.get(`/earn`, {
         headers: {
           comp: this.state.search,
         },
