@@ -1,5 +1,6 @@
 const express = require("express");
 const { Server } = require("ws");
+const path = require("path");
 
 const app = express();
 
@@ -36,7 +37,7 @@ app.use("/earn", earning);
 app.use("/candleCurrency", candleCurrency);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, 'client/build')))
+  app.use(express.static(path.join(__dirname, "client/build")));
   app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "client/build", "index.html"));
   });
@@ -52,10 +53,3 @@ wss.on("connection", (ws) => {
   console.log("Client connected");
   ws.on("close", () => console.log("Client disconected"));
 });
-
-setInterval(() => {
-  wss.clients.forEach((client) => {
-    client.send(new Date().toTimeString());
-    console.log(new Date().toTimeString());
-  });
-}, 1000);
