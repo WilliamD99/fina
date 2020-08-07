@@ -1,9 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import Chart from "react-apexcharts";
 
-export default class StackedChart extends Component {
-  constructor(props) {
-    super(props);
+export default function StackedChart(props) {
     const { data } = props;
 
     let buyArr = [],
@@ -44,7 +42,7 @@ export default class StackedChart extends Component {
       },
     ];
 
-    this.state = {
+    state = {
       series: dataArr,
       options: {
         chart: {
@@ -94,8 +92,8 @@ export default class StackedChart extends Component {
         },
       },
     };
-  }
-  render() {
+  
+
     return (
       <div className="app">
         <div className="row">
@@ -110,4 +108,3 @@ export default class StackedChart extends Component {
       </div>
     );
   }
-}

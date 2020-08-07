@@ -1,9 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import Chart from "react-apexcharts";
 
-export default class ClosingChart extends Component {
-  constructor(props) {
-    super(props);
+export default function ClosingChart(props) {
+
     const { data } = props;
 
     let dataArr = data.map((val) => {
@@ -12,7 +11,7 @@ export default class ClosingChart extends Component {
       return [timestamp, close];
     });
 
-    this.state = {
+    state = {
       series: [
         {
           data: dataArr,
@@ -53,16 +52,14 @@ export default class ClosingChart extends Component {
       },
       selection: "one_year",
     };
-  }
-
-  render() {
+  
     return (
       <div className="app">
         <div className="row">
           <div className="mixed-chart">
             <Chart
-              options={this.state.options}
-              series={this.state.series}
+              options={state.options}
+              series={state.series}
               width={"100%"}
               id="close-chart"
               type="area"
@@ -72,4 +69,4 @@ export default class ClosingChart extends Component {
       </div>
     );
   }
-}
+
