@@ -26,7 +26,6 @@ const useStyles = makeStyles(styles);
 export default function Dashboard(props) {
   const classes = useStyles();
   const { peerData, peers, candle, earning, profile, handleSearch } = props;
-  console.log(candle);
   let recentStats = candle.slice(props.candle.length - 2, props.candle.length);
   let earningArr = [];
   earning.map((i) => {

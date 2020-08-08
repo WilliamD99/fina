@@ -98,8 +98,8 @@ export default function StackedChart(props) {
       <div className="row">
         <div className="mixed-chart">
           <Chart
-            options={this.state.options}
-            series={this.state.series}
+            options={state.options}
+            series={state.series}
             type="bar"
           />
         </div>
