@@ -51,12 +51,12 @@ const dashboardRoutes = [
     icon: TimeLine,
     layout: "/admin",
   },
-  {
-    path: "/currency",
-    name: "Currency",
-    icon: LibraryBooks,
-    layout: "/admin",
-  },
+  // {
+  //   path: "/currency",
+  //   name: "Currency",
+  //   icon: LibraryBooks,
+  //   layout: "/admin",
+  // },
   // {
   //   path: "/icons",
   //   name: "Icons",
