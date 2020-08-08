@@ -3,7 +3,6 @@ import React from "react";
 // @material-ui/core
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
-import AccessTime from "@material-ui/icons/AccessTime";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 // core components
@@ -25,7 +24,15 @@ const useStyles = makeStyles(styles);
 
 export default function Dashboard(props) {
   const classes = useStyles();
-  const { peerData, peers, candle, earning, profile, handleSearch } = props;
+  const {
+    peerData,
+    peers,
+    candle,
+    earning,
+    profile,
+    handleSearch,
+    handleLoading,
+  } = props;
   let recentStats = candle.slice(props.candle.length - 2, props.candle.length);
   let earningArr = [];
   earning.map((i) => {
@@ -58,7 +65,14 @@ export default function Dashboard(props) {
     let peerDisplay =
       peers.length > 0
         ? peers.map((v, i) => (
-            <Card className="peers" onClick={() => handleSearch(v)} key={i}>
+            <Card
+              className="peers"
+              onClick={() => {
+                handleLoading();
+                handleSearch(v);
+              }}
+              key={i}
+            >
               <CardHeader color="warning" stats icon>
                 <p className={`${classes.cardCategory} peer-name`}>{v}</p>
                 <h3 className={`${classes.cardTitle} text-center`}>

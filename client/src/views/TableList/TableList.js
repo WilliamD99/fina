@@ -45,12 +45,6 @@ const useStyles = makeStyles(styles);
 export default function TableList(props) {
   const classes = useStyles();
 
-  const [checked, setChecked] = React.useState(false);
-
-  const handleChange = () => {
-    setChecked((prev) => !prev);
-  };
-
   const { basic } = props;
   const {
     longRange,

@@ -2,11 +2,6 @@ import React, { Component } from "react";
 import Admin from "./Admin";
 import axios from "axios";
 
-const API_URL =
-  process.env.NODE_ENV === "production"
-    ? "https://YOUR_HEROKU_APP_NAME.herokuapp.com"
-    : "http://localhost:5000";
-
 export default class DC extends Component {
   state = {
     search: "AAPL",
@@ -17,6 +12,20 @@ export default class DC extends Component {
 
   handleSymbol = (e) => {
     this.setState({ search: e });
+  };
+
+  handleLoading = () => {
+    this.setState({
+      candle: undefined,
+      profile: undefined,
+      symbols: undefined,
+      floors: undefined,
+      peers: undefined,
+      news: undefined,
+      basic: undefined,
+      buy: undefined,
+      earning: undefined,
+    });
   };
 
   quoteRoute = `/quote`;
@@ -267,6 +276,7 @@ export default class DC extends Component {
         earning={this.state.earning}
         // candleC={this.state.candleC}
         handleSymbol={this.handleSymbol}
+        handleLoading={this.handleLoading}
       />
     );
   }

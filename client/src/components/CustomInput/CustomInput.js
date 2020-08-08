@@ -129,10 +129,7 @@ export default function CustomInput(props) {
         <DialogTitle>Search company</DialogTitle>
         <DialogContent>
           <form className={classes.container}>
-            <FormControl
-              className="exchange-setting"
-              className={classes.formControl}
-            >
+            <FormControl className={`${classes.formControl} exchange-setting`}>
               <InputLabel id="demo-simple-select-label">Exchanges</InputLabel>
               <Select
                 labelId="demo-simple-select-label"

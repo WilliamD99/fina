@@ -97,7 +97,7 @@ export default function UserProfile(props) {
         </GridItem>
       ))
     ) : (
-      <img src={nonew} className="img-fluid" />
+      <img src={nonew} className="img-fluid" alt="404" />
     );
   return (
     <>

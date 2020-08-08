@@ -25,15 +25,6 @@ let ps;
 
 const useStyles = makeStyles(styles);
 
-const useStylesLoading = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    "& > * + *": {
-      marginLeft: theme.spacing(2),
-    },
-  },
-}));
-
 export default function Admin({ ...rest }) {
   let getRoutes = () => {
     if (
@@ -58,6 +49,7 @@ export default function Admin({ ...rest }) {
                   earning={rest.earning}
                   buy={rest.buy}
                   handleSearch={rest.handleSymbol}
+                  handleLoading={rest.handleLoading}
                 />
               );
             }}
