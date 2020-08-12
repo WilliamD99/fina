@@ -40,13 +40,15 @@ export default function CustomInput(props) {
     success,
     floors,
     symbols,
+    handleLoading,
+    handleSymbol,
   } = props;
 
-  const [floor, setFloor] = useState("US");
+  const [floorSelect, setFloor] = useState("US");
   const [comp, setComp] = useState();
-  const [bl, setBL] = React.useState(false);
+  const [bl, setBL] = useState(false);
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleChangeFloor = (e) => {
     setFloor(e.target.value);
@@ -73,7 +75,8 @@ export default function CustomInput(props) {
 
   const handleSubmit = () => {
     setOpen(false);
-    props.handleSymbol(comp);
+    handleLoading();
+    handleSymbol(comp);
   };
 
   // Auto complete

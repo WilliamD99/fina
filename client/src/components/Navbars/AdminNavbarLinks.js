@@ -14,24 +14,23 @@ export default function AdminNavbarLinks(props) {
 
   if (props.floors !== undefined) {
     return (
-      <>
-        <div className={classes.searchWrapper}>
-          <CustomInput
-            formControlProps={{
-              className: classes.margin + " " + classes.search,
-            }}
-            inputProps={{
-              placeholder: "Search",
-              inputProps: {
-                "aria-label": "Search",
-              },
-            }}
-            floors={props.floors}
-            symbols={props.symbols}
-            handleSymbol={props.handleSymbol}
-          />
-        </div>
-      </>
+      <div className={classes.searchWrapper}>
+        <CustomInput
+          formControlProps={{
+            className: classes.margin + " " + classes.search,
+          }}
+          inputProps={{
+            placeholder: "Search",
+            inputProps: {
+              "aria-label": "Search",
+            },
+          }}
+          floors={props.floors}
+          symbols={props.symbols}
+          handleSymbol={props.handleSymbol}
+          handleLoading={props.handleLoading}
+        />
+      </div>
     );
   } else {
     return <h1></h1>;

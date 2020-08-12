@@ -12,6 +12,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
 // core components
+import logo from "assets/logo_trans.png";
 
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
 
@@ -23,7 +24,7 @@ export default function Sidebar(props) {
   function activeRoute(routeName) {
     return window.location.href.indexOf(routeName) > -1 ? true : false;
   }
-  const { color, logo, image, logoText, routes, link } = props;
+  const { color, image, logoText, routes, link } = props;
   var links = (
     <>
       {routes.map((prop, key) => {
@@ -132,6 +133,9 @@ export default function Sidebar(props) {
           {brand}
           <div className={classes.sidebarWrapper}>
             <List className={classes.list}>{links}</List>
+          </div>
+          <div className={`${classes.sidebarWrapper} logo-container`}>
+            <img src={logo} alt="logo" className="img-fluid will-logo" />
           </div>
           {image !== undefined ? (
             <div

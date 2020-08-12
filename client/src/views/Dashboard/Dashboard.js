@@ -20,6 +20,8 @@ import StackedChart from "components/Charts/StackedChart";
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 
+import QueueAnim from "rc-queue-anim";
+
 const useStyles = makeStyles(styles);
 
 export default function Dashboard(props) {
@@ -33,7 +35,9 @@ export default function Dashboard(props) {
     handleSearch,
     handleLoading,
   } = props;
+  // Get recent stats to get the increase (descrease) of today's stats
   let recentStats = candle.slice(props.candle.length - 2, props.candle.length);
+  // Return an array of date of earning
   let earningArr = [];
   earning.map((i) => {
     let dataArr = [];
@@ -46,12 +50,13 @@ export default function Dashboard(props) {
     dataArr.push(period, i.estimate.toFixed(2), i.actual.toFixed(2));
     earningArr.push(dataArr);
   });
+  // Calculate the percentage different between today and yesterday
   const calculator = (a, b) => {
     let diff = (b - a).toFixed(2);
     let percentDiff = (((b - a) / b) * 100).toFixed(2);
 
-    let styleDiff = diff > 0 ? "incr" : "decr";
-    let iconDiff = diff > 0 ? <ExpandLess /> : <ExpandMore />;
+    let styleDiff = diff > 0 ? "incr" : "decr"; // This will be the class for the element (green or red)
+    let iconDiff = diff > 0 ? <ExpandLess /> : <ExpandMore />; // Up or down icon
 
     let cardFooter = (
       <div className={`${classes.stats} ${styleDiff}`}>
@@ -65,36 +70,56 @@ export default function Dashboard(props) {
     let peerDisplay =
       peers.length > 0
         ? peers.map((v, i) => (
-            <Card
-              className="peers"
-              onClick={() => {
-                handleLoading();
-                handleSearch(v);
-              }}
-              key={i}
+            <QueueAnim
+              key="queue"
+              delay={[i * 100, (peers.length - 1 - i) * 100]}
+              animConfig={[
+                { opacity: [1, 0], translateY: [0, 50] },
+                { opacity: [1, 0], translateY: [0, -50] },
+              ]}
+              ease={["easeOutQuart", "easeInOutQuart"]}
             >
-              <CardHeader color="warning" stats icon>
-                <p className={`${classes.cardCategory} peer-name`}>{v}</p>
-                <h3 className={`${classes.cardTitle} text-center`}>
-                  {peerData[i].c !== undefined ? `$${peerData[i].c}` : "$0"}{" "}
-                </h3>
-              </CardHeader>
-              <CardFooter className="peer-stats" stats>
-                {peerData[i].c !== undefined
-                  ? calculator(peerData[i].pc, peerData[i].c)
-                  : "No data"}
-              </CardFooter>
-            </Card>
+              <Card
+                key={`card-${i}`}
+                className="peers"
+                onClick={() => {
+                  if (peerData[i].c !== undefined) {
+                    handleLoading();
+                    handleSearch(v);
+                  }
+                }}
+              >
+                <CardHeader color="warning" stats icon>
+                  <p className={`${classes.cardCategory} peer-name`}>{v}</p>
+                  <h3 className={`${classes.cardTitle} text-center`}>
+                    {peerData[i].c !== undefined ? `$${peerData[i].c}` : "$0"}{" "}
+                  </h3>
+                </CardHeader>
+                <CardFooter className="peer-stats" stats>
+                  {peerData[i].c !== undefined
+                    ? calculator(peerData[i].pc, peerData[i].c)
+                    : "No data"}
+                </CardFooter>
+              </Card>
+            </QueueAnim>
           ))
-        : peerNone.map((v, i) => (
-            <Card key={i}>
-              <CardBody color="warning" stats icon>
-                <p className={`${classes.cardCategory} peer-name`}>No Data</p>
-                <h3 className={`${classes.cardTitle} text-center`}>
-                  Sorry no data at the moment
-                </h3>
-              </CardBody>
-            </Card>
+        : // Incase the APIs doesn't have any data for peers
+          peerNone.map((v, i) => (
+            <QueueAnim
+              key="queue"
+              delay={[i * 100, (peerNone.length - 1 - i) * 100]}
+              type={["right", "left"]}
+              ease={["easeOutQuart", "easeInOutQuart"]}
+            >
+              <Card key={`card${i}`}>
+                <CardBody color="warning" stats icon>
+                  <p className={`${classes.cardCategory} peer-name`}>No Data</p>
+                  <h3 className={`${classes.cardTitle} text-center`}>
+                    Sorry no data at the moment
+                  </h3>
+                </CardBody>
+              </Card>
+            </QueueAnim>
           ));
     let peerContainer = peerDisplay.map((v, i) => (
       <GridItem xs={12} sm={6} md={3} key={i}>
@@ -107,28 +132,57 @@ export default function Dashboard(props) {
         <GridContainer>{peerContainer}</GridContainer>
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
-            <Card>
-              <CardBody>
-                <CandleStick data={candle} profile={profile} />
-              </CardBody>
-            </Card>
+            <QueueAnim
+              key="queue"
+              delay={100}
+              animConfig={[
+                { opacity: [1, 0], translateY: [0, 50] },
+                { opacity: [1, 0], translateY: [0, -50] },
+              ]}
+              ease={["easeOutQuart", "easeInOutQuart"]}
+            >
+              <Card key="candle-stick">
+                <CardBody>
+                  <CandleStick data={candle} profile={profile} />
+                </CardBody>
+              </Card>
+            </QueueAnim>
           </GridItem>
         </GridContainer>
         <GridContainer>
           <GridItem xs={12} sm={12} md={6}>
             {/* Line Chart */}
-            <Card chart>
-              <CardHeader>
-                <ClosingChart data={props.candle} />
-                <StackedChart data={props.buy} />
-              </CardHeader>
-            </Card>
+            <QueueAnim
+              key="queue"
+              delay={200}
+              animConfig={[
+                { opacity: [1, 0], translateY: [0, 50] },
+                { opacity: [1, 0], translateY: [0, -50] },
+              ]}
+              ease={["easeOutQuart", "easeInOutQuart"]}
+            >
+              <Card key="charts" chart>
+                <CardHeader>
+                  <ClosingChart data={props.candle} />
+                  <StackedChart data={props.buy} />
+                </CardHeader>
+              </Card>
+            </QueueAnim>
           </GridItem>
           {/* Company Quote */}
 
           <GridItem xs={12} sm={12} md={6}>
-            <div className="card-holder d-flex">
-              <Card className="customied-card">
+            <QueueAnim
+              key="queue"
+              delay={300}
+              animConfig={[
+                { opacity: [1, 0], translateY: [0, 50] },
+                { opacity: [1, 0], translateY: [0, -50] },
+              ]}
+              ease={["easeOutQuart", "easeInOutQuart"]}
+              className="card-holder d-flex"
+            >
+              <Card key="OCHL-card-open" className="customied-card">
                 <CardHeader color="warning" stats icon>
                   <p className={`${classes.cardCategory} text-center`}>Open</p>
                   <h3 className={`${classes.cardTitle} text-center`}>
@@ -139,7 +193,7 @@ export default function Dashboard(props) {
                   {calculator(recentStats[0][1], recentStats[1][1])}
                 </CardFooter>
               </Card>
-              <Card className="customied-card">
+              <Card key="OCHL-card-high" className="customied-card">
                 <CardHeader color="success" stats icon>
                   <p className={`${classes.cardCategory} text-center`}>High</p>
                   <h3 className={`${classes.cardTitle} text-center`}>
@@ -150,9 +204,18 @@ export default function Dashboard(props) {
                   {calculator(recentStats[0][2], recentStats[1][2])}
                 </CardFooter>
               </Card>
-            </div>
-            <div className="card-holder d-flex">
-              <Card className="customied-card">
+            </QueueAnim>
+            <QueueAnim
+              key="queue"
+              delay={400}
+              animConfig={[
+                { opacity: [1, 0], translateY: [0, 50] },
+                { opacity: [1, 0], translateY: [0, -50] },
+              ]}
+              ease={["easeOutQuart", "easeInOutQuart"]}
+              className="card-holder d-flex"
+            >
+              <Card key="OCHL-card-low" className="customied-card">
                 <CardHeader color="danger" stats icon>
                   <p className={`${classes.cardCategory} text-center`}>Low</p>
                   <h3 className={`${classes.cardTitle} text-center`}>
@@ -163,7 +226,7 @@ export default function Dashboard(props) {
                   {calculator(recentStats[0][3], recentStats[1][3])}
                 </CardFooter>
               </Card>
-              <Card className="customied-card">
+              <Card key="OCHL-card-close" className="customied-card">
                 <CardHeader color="info" stats icon>
                   <p className={`${classes.cardCategory} text-center`}>Close</p>
                   <h3 className={`${classes.cardTitle} text-center`}>
@@ -174,25 +237,35 @@ export default function Dashboard(props) {
                   {calculator(recentStats[0][4], recentStats[1][4])}
                 </CardFooter>
               </Card>
-            </div>
+            </QueueAnim>
 
-            <Card>
-              <CardHeader className="es-header">
-                <h4 className={`${classes.cardTitleWhite} text-center`}>
-                  Earnings Surprises
-                </h4>
-                <p className={`${classes.cardCategoryWhite} text-center`}>
-                  Last 4 quarters
-                </p>
-              </CardHeader>
-              <CardBody>
-                <Table
-                  tableHeaderColor="warning"
-                  tableHead={["Period", "Estimate", "Actual"]}
-                  tableData={earningArr}
-                />
-              </CardBody>
-            </Card>
+            <QueueAnim
+              key="queue"
+              delay={500}
+              animConfig={[
+                { opacity: [1, 0], translateY: [0, 50] },
+                { opacity: [1, 0], translateY: [0, -50] },
+              ]}
+              ease={["easeOutQuart", "easeInOutQuart"]}
+            >
+              <Card key="earning-table">
+                <CardHeader className="es-header">
+                  <h4 className={`${classes.cardTitleWhite} text-center`}>
+                    Earnings Surprises
+                  </h4>
+                  <p className={`${classes.cardCategoryWhite} text-center`}>
+                    Last 4 quarters
+                  </p>
+                </CardHeader>
+                <CardBody>
+                  <Table
+                    tableHeaderColor="warning"
+                    tableHead={["Period", "Estimate", "Actual"]}
+                    tableData={earningArr}
+                  />
+                </CardBody>
+              </Card>
+            </QueueAnim>
           </GridItem>
         </GridContainer>
       </>

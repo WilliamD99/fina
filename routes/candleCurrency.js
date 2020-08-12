@@ -13,7 +13,6 @@ candleCurrency.get("/", (req, res) => {
   let timeStampPast = (date.setFullYear(date.getFullYear() - 1) / 1000).toFixed(
     0
   );
-  console.log(req.headers.rate);
   finnhubClient.forexCandles(
     `OANDA:${req.headers.from}_${req.headers.to}`,
     "D",
@@ -21,16 +20,6 @@ candleCurrency.get("/", (req, res) => {
     timeStamp,
     (error, data, response) => {
       let dataArr = [];
-
-      // for (let i = 0; i < data.o.length; i++) {
-      //   let open = data.o[i],
-      //     close = data.c[i],
-      //     high = data.h[i],
-      //     low = data.l[i],
-      //     volume = data.v[i];
-
-      //   dataArr.push([data.t[i] * 1000, open, high, low, close, volume]);
-      // }
       res.send(data);
     }
   );

@@ -47,6 +47,7 @@ export default function Header(props) {
             floors={props.floors}
             symbols={props.symbols}
             handleSymbol={props.handleSymbol}
+            handleLoading={props.handleLoading}
           />
         </Hidden>
         <Hidden mdUp implementation="css">

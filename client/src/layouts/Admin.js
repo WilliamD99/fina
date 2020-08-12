@@ -146,7 +146,11 @@ export default function Admin({ ...rest }) {
         <Navbar
           routes={routes}
           handleDrawerToggle={handleDrawerToggle}
-          {...rest}
+          floors={rest.floors}
+          symbols={rest.symbols}
+          handleLoading={rest.handleLoading}
+          handleSymbol={rest.handleSymbol}
+          handleDrawerToggle={handleDrawerToggle}
         />
         {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
         {getRoute() ? (

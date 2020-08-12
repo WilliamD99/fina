@@ -12,9 +12,6 @@ import CardFooter from "components/Card/CardFooter.js";
 
 import Table from "components/Table/Table";
 
-import "lazysizes";
-import "lazysizes/plugins/parent-fit/ls.parent-fit";
-
 import nodata from "assets/images.jpg";
 import nonew from "assets/404.jpg";
 
@@ -56,11 +53,10 @@ export default function UserProfile(props) {
             ease={["easeOutQuart", "easeInOutQuart"]}
           >
             <Card key={i}>
-              <QueueAnim></QueueAnim>
               <CardHeader>
                 {content.image !== "" ? (
                   <img
-                    className="img-fluid lazyload"
+                    className="img-fluid new-img"
                     src={content.image}
                     alt="Article image"
                   />

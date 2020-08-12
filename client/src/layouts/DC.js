@@ -18,8 +18,6 @@ export default class DC extends Component {
     this.setState({
       candle: undefined,
       profile: undefined,
-      symbols: undefined,
-      floors: undefined,
       peers: undefined,
       news: undefined,
       basic: undefined,
