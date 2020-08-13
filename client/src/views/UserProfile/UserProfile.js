@@ -58,18 +58,14 @@ export default function UserProfile(props) {
           >
             <Card key={i}>
               <CardHeader>
-                {content.image !== "" || content.image !== "null" ? (
+                {content.image !== "" ? (
                   <img
-                    className="img-fluid new-img lazyload"
+                    className="img-fluid new-img"
                     src={content.image}
                     alt="Article image"
                   />
                 ) : (
-                  <img
-                    className="img-fluid lazyload"
-                    src={nonew}
-                    alt="Article image"
-                  />
+                  <img className="img-fluid" src={nonew} alt="Article image" />
                 )}
               </CardHeader>
               <CardBody>
