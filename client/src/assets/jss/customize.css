@@ -145,6 +145,14 @@
   filter: blur(1px);
 }
 
+.search-btn span {
+  color: gray;
+}
+
+.search-btn span svg {
+  margin-left: 0.5rem;
+}
+
 /* Hover effect */
 .hvr-float {
   display: inline-block;

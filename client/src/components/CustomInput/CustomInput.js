@@ -119,7 +119,7 @@ export default function CustomInput(props) {
   }
   return (
     <>
-      <Button onClick={handleClickOpen}>
+      <Button className="search-btn" onClick={handleClickOpen}>
         Search <Search />
       </Button>
       <Dialog

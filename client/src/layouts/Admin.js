@@ -142,6 +142,10 @@ export default function Admin({ ...rest }) {
         handleDrawerToggle={handleDrawerToggle}
         open={mobileOpen}
         color={color}
+        floors={rest.floors}
+        symbols={rest.symbols}
+        handleLoading={rest.handleLoading}
+        handleSymbol={rest.handleSymbol}
       />
       <div className={classes.mainPanel} ref={mainPanel}>
         <Navbar
