@@ -15,6 +15,10 @@ import Table from "components/Table/Table";
 import nodata from "assets/images.jpg";
 import nonew from "assets/404.jpg";
 
+import "lazysizes";
+// import a plugin
+import "lazysizes/plugins/parent-fit/ls.parent-fit";
+
 import QueueAnim from "rc-queue-anim";
 
 const styles = {
@@ -47,16 +51,16 @@ export default function UserProfile(props) {
       news.map((content, i) => (
         <GridItem key={i} xs={12} sm={10} md={6}>
           <QueueAnim
-            key="queue"
+            key={`queue-${i}`}
             delay={[i * 100, (news.length - 1 - i) * 100]}
             type={["right", "left"]}
             ease={["easeOutQuart", "easeInOutQuart"]}
           >
             <Card key={i}>
               <CardHeader>
-                {content.image !== "" ? (
+                {content.image !== "" || content.image !== "null" ? (
                   <img
-                    className="img-fluid new-img"
+                    className="img-fluid new-img lazyload"
                     src={content.image}
                     alt="Article image"
                   />
@@ -93,7 +97,7 @@ export default function UserProfile(props) {
         </GridItem>
       ))
     ) : (
-      <img src={nonew} className="img-fluid" alt="404" />
+      <img src={nonew} className="img-fluid lazyload" alt="404" />
     );
   return (
     <>

@@ -2,17 +2,21 @@ import React from "react";
 import Chart from "react-apexcharts";
 
 export default function ClosingChart(props) {
-  const { data } = props;
-
-  let dataArr = data.map((val) => {
+  let dataArr = props.data.map((val) => {
     let timestamp = val[0],
       close = val[4];
     return [timestamp, close];
   });
+  // setCandlePeer(
+  //   candlePeer.map((val) => {
+  //     return [val[0], val[4]];
+  //   })
+  // );
 
   let state = {
     series: [
       {
+        name: "Closing Price",
         data: dataArr,
       },
     ],
@@ -31,7 +35,7 @@ export default function ClosingChart(props) {
 
       xaxis: {
         type: "datetime",
-        min: new Date(data[0][0]).getTime(),
+        min: new Date(props.data[0][0]).getTime(),
         tickAmount: 6,
       },
       tooltip: {
@@ -50,6 +54,10 @@ export default function ClosingChart(props) {
       },
     },
     selection: "one_year",
+    legend: {
+      position: "top",
+      horizontalAlign: "left",
+    },
   };
 
   return (

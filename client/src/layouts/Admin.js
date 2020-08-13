@@ -50,6 +50,7 @@ export default function Admin({ ...rest }) {
                   buy={rest.buy}
                   handleSearch={rest.handleSymbol}
                   handleLoading={rest.handleLoading}
+                  addPeer={rest.addPeer}
                 />
               );
             }}

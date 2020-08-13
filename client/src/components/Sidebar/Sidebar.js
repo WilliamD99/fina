@@ -12,7 +12,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
 // core components
-import logo from "assets/logo_trans.png";
+import Logo from "components/Logo/Logo";
 
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
 
@@ -110,7 +110,12 @@ export default function Sidebar(props) {
           }}
         >
           {brand}
-
+          <div className={classes.sidebarWrapper}>
+            <List className={classes.list}>{links}</List>
+          </div>
+          <div className={`${classes.sidebarWrapper} logo-container`}>
+            <Logo />
+          </div>
           {image !== undefined ? (
             <div
               className={classes.background}
@@ -135,7 +140,7 @@ export default function Sidebar(props) {
             <List className={classes.list}>{links}</List>
           </div>
           <div className={`${classes.sidebarWrapper} logo-container`}>
-            <img src={logo} alt="logo" className="img-fluid will-logo" />
+            <Logo />
           </div>
           {image !== undefined ? (
             <div

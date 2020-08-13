@@ -6,10 +6,8 @@ export default class DC extends Component {
   state = {
     search: "AAPL",
     floor: "US",
-    from: "EUR",
-    to: "USD",
   };
-
+  // Handle search function
   handleSymbol = (e) => {
     this.setState({ search: e });
   };
@@ -25,6 +23,25 @@ export default class DC extends Component {
       earning: undefined,
     });
   };
+
+  // Add candle data for peer
+  // addPeer = (e) => {
+  //   console.log("This function is running", e);
+
+  //   axios
+  //     .get(`/candle`, {
+  //       headers: {
+  //         comp: e,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       let data = res.data;
+  //       console.log(data);
+  //       this.setState({
+  //         candlePeer: data,
+  //       });
+  //     });
+  // };
 
   quoteRoute = `/quote`;
 
@@ -272,7 +289,6 @@ export default class DC extends Component {
         basic={this.state.basic}
         buy={this.state.buy}
         earning={this.state.earning}
-        // candleC={this.state.candleC}
         handleSymbol={this.handleSymbol}
         handleLoading={this.handleLoading}
       />

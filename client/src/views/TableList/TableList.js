@@ -82,7 +82,8 @@ export default function TableList(props) {
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
         <QueueAnim
-          delay={500}
+          delay={200}
+          duration={300}
           type={["right", "left"]}
           ease={["easeOutQuart", "easeInOutQuart"]}
         >
@@ -123,7 +124,8 @@ export default function TableList(props) {
       </GridItem>
       <GridItem xs={12} sm={12} md={6}>
         <QueueAnim
-          delay={550}
+          delay={250}
+          duration={300}
           type={["right", "left"]}
           ease={["easeOutQuart", "easeInOutQuart"]}
         >
@@ -184,7 +186,8 @@ export default function TableList(props) {
       </GridItem>
       <GridItem xs={12} sm={12} md={6}>
         <QueueAnim
-          delay={600}
+          delay={300}
+          duration={300}
           type={["right", "left"]}
           ease={["easeOutQuart", "easeInOutQuart"]}
         >

@@ -27,8 +27,9 @@ const useStyles = makeStyles(styles);
 export default function Dashboard(props) {
   const classes = useStyles();
   const {
-    peerData,
+    buy,
     peers,
+    peerData,
     candle,
     earning,
     profile,
@@ -133,7 +134,7 @@ export default function Dashboard(props) {
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
             <QueueAnim
-              key="queue"
+              key="queue1"
               delay={100}
               animConfig={[
                 { opacity: [1, 0], translateY: [0, 50] },
@@ -153,7 +154,7 @@ export default function Dashboard(props) {
           <GridItem xs={12} sm={12} md={6}>
             {/* Line Chart */}
             <QueueAnim
-              key="queue"
+              key="queue2"
               delay={200}
               animConfig={[
                 { opacity: [1, 0], translateY: [0, 50] },
@@ -163,8 +164,8 @@ export default function Dashboard(props) {
             >
               <Card key="charts" chart>
                 <CardHeader>
-                  <ClosingChart data={props.candle} />
-                  <StackedChart data={props.buy} />
+                  <ClosingChart data={candle} />
+                  <StackedChart data={buy} />
                 </CardHeader>
               </Card>
             </QueueAnim>
@@ -173,7 +174,7 @@ export default function Dashboard(props) {
 
           <GridItem xs={12} sm={12} md={6}>
             <QueueAnim
-              key="queue"
+              key="queue3"
               delay={300}
               animConfig={[
                 { opacity: [1, 0], translateY: [0, 50] },
@@ -206,7 +207,7 @@ export default function Dashboard(props) {
               </Card>
             </QueueAnim>
             <QueueAnim
-              key="queue"
+              key="queue4"
               delay={400}
               animConfig={[
                 { opacity: [1, 0], translateY: [0, 50] },
@@ -240,7 +241,7 @@ export default function Dashboard(props) {
             </QueueAnim>
 
             <QueueAnim
-              key="queue"
+              key="queue5"
               delay={500}
               animConfig={[
                 { opacity: [1, 0], translateY: [0, 50] },

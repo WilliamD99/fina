@@ -10,7 +10,7 @@ const peers = express.Router();
 
 peers.get("/", (req, res) => {
   finnhubClient.companyPeers(req.headers.comp, (error, data, response) => {
-    res.send(data.slice(0, 4));
+    res.send(data.filter((comp) => comp !== req.headers.comp).slice(0, 4));
   });
 });
 
