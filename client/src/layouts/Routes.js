@@ -4,6 +4,7 @@ import DC from "layouts/DC";
 import Login from "views/Login/Login";
 import Signup from "views/Signup/Signup";
 import { useHistory } from "react-router-dom";
+import NotFound from "views/NotFound/NotFound";
 
 export default function Routes(props) {
   const { handleLogout, authenticated } = props;
@@ -41,7 +42,8 @@ export default function Routes(props) {
         exact
       />
       <Redirect from="/" to="/login" exact />
-      <Redirect from="/admin" to="/admin/dashboard" />
+      <Redirect from="/admin" to="/admin/dashboard" exact />
+      <Route component={NotFound} />
     </Switch>
   );
 }

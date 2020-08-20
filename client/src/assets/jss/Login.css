@@ -4,7 +4,7 @@
 }
 
 #login .left {
-  background-image: url("../login.webp");
+  width: 0;
 }
 
 #signup {
@@ -13,7 +13,7 @@
 }
 
 #signup .left {
-  background-image: url("../signup.webp");
+  width: 0;
 }
 
 #verification {
@@ -22,7 +22,22 @@
 }
 
 #verification .left {
-  background-image: url("../confirm.webp");
+  width: 0;
+}
+
+@media only screen and (min-width: 768px) {
+  #login .left {
+    background-image: url("../login.webp");
+    width: 18vw;
+  }
+  #signup .left {
+    background-image: url("../signup.webp");
+    width: 18vw;
+  }
+  #verification .left {
+    background-image: url("../confirm.webp");
+    width: 18vw;
+  }
 }
 
 .authenticate-page {
@@ -236,5 +251,79 @@
 .authenticate-page .action-container .nav-item:hover {
   text-decoration: underline;
   opacity: 0.5;
+}
+
+.wrapper {
+  -webkit-box-flex: 2;
+      -ms-flex-positive: 2;
+          flex-grow: 2;
+  width: 40vw;
+  max-width: 500px;
+  margin: 0 auto;
+  -webkit-transform: translateY(50%);
+          transform: translateY(50%);
+}
+
+.wrapper h1 {
+  margin: 0;
+  font-size: 5em;
+  font-weight: 100;
+}
+
+.wrapper p {
+  width: 95%;
+  font-size: 1.3em;
+  line-height: 1.4;
+}
+
+.wrapper .buttons {
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.wrapper span {
+  display: block;
+  text-transform: uppercase;
+  color: #b9ddfb;
+  letter-spacing: 1.5px;
+  text-align: center;
+}
+
+.wrapper a {
+  display: inline-block;
+  padding: 0.8em 1em;
+  margin-right: 1em;
+  margin-bottom: 1em;
+  border: 3px solid #b9ddfb;
+  color: #138ff2;
+  font-weight: 500;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.2em;
+  position: relative;
+  overflow: hidden;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.wrapper a:hover {
+  color: #e3f2fd;
+}
+
+.wrapper a:hover:before {
+  top: 0;
+}
+
+.wrapper a:before {
+  content: "";
+  background: #138ff2;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: -100%;
+  left: 0;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  z-index: -1;
 }
 /*# sourceMappingURL=Login.css.map */
