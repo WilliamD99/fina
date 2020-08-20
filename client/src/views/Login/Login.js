@@ -4,7 +4,6 @@ import { LinkContainer } from "react-router-bootstrap";
 import { NavItem } from "react-bootstrap";
 
 import Amplify, { Auth } from "aws-amplify";
-import awsconfig from "./aws-exports";
 
 import { useAppContext } from "libs/contextLibs";
 import { onError } from "libs/errorLibs";
@@ -16,7 +15,18 @@ import LoaderBtn from "components/CustomButtons/LoaderButton";
 import QueueAnim from "rc-queue-anim";
 import "assets/jss/Login.css";
 
-Amplify.configure(awsconfig);
+require("dotenv").config();
+
+let config = {
+  aws_project_region: process.env.REACT_APP_REGION,
+  aws_cognito_identity_pool_id: process.env.REACT_APP_IDENTITY_POOL_ID,
+  aws_cognito_region: process.env.REACT_APP_COGNITO_REGION,
+  aws_user_pools_id: process.env.REACT_APP_USER_POOLS_ID,
+  aws_user_pools_web_client_id: process.env.REACT_APP_USER_POOLS_WEB_CLIENT_ID,
+  oauth: {},
+};
+
+Amplify.configure(config);
 
 export default function Login() {
   const history = useHistory();
