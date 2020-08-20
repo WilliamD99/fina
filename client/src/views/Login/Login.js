@@ -4,7 +4,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { NavItem } from "react-bootstrap";
 
 import Amplify, { Auth } from "aws-amplify";
-import awsconfig from "../../aws-exports";
+import awsconfig from "./aws-exports";
 
 import { useAppContext } from "libs/contextLibs";
 import { onError } from "libs/errorLibs";
