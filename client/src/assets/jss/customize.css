@@ -153,6 +153,9 @@
   margin-left: 0.5rem;
 }
 
+.logout-container:hover {
+}
+
 .logout:hover {
   background-color: #deddd9 !important;
   box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14),
