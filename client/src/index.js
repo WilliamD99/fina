@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
-import { Router, Route, Switch, Redirect } from "react-router-dom";
 
 // core components
-import DC from "layouts/DC";
+import App from "./App";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import $ from "jquery";
@@ -16,10 +16,7 @@ const hist = createBrowserHistory();
 
 ReactDOM.render(
   <Router history={hist}>
-    <Switch>
-      <Route path="/admin" component={DC} />
-      <Redirect from="/" to="/admin/dashboard" />
-    </Switch>
+    <App />
   </Router>,
   document.getElementById("root")
 );

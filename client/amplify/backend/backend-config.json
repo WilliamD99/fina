@@ -1,0 +1,9 @@
+{
+	"auth": {
+		"finaAmplifyCognito": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
+		}
+	}
+}

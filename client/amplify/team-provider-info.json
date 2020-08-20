@@ -1,0 +1,20 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-finalogin-dev-212517-authRole",
+            "UnauthRoleArn": "arn:aws:iam::234205501728:role/amplify-finalogin-dev-212517-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::234205501728:role/amplify-finalogin-dev-212517-authRole",
+            "Region": "ca-central-1",
+            "DeploymentBucketName": "amplify-finalogin-dev-212517-deployment",
+            "UnauthRoleName": "amplify-finalogin-dev-212517-unauthRole",
+            "StackName": "amplify-finalogin-dev-212517",
+            "StackId": "arn:aws:cloudformation:ca-central-1:234205501728:stack/amplify-finalogin-dev-212517/0a6d8f10-e1d4-11ea-bc4b-066237fddb7e",
+            "AmplifyAppId": "d1tt2qgvgqjyl8"
+        },
+        "categories": {
+            "auth": {
+                "finaAmplifyCognito": {}
+            }
+        }
+    }
+}

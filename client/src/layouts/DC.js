@@ -6,6 +6,7 @@ export default class DC extends Component {
   state = {
     search: "AAPL",
     floor: "US",
+    login: false,
   };
   // Handle search function
   handleSymbol = (e) => {
@@ -291,6 +292,7 @@ export default class DC extends Component {
         earning={this.state.earning}
         handleSymbol={this.handleSymbol}
         handleLoading={this.handleLoading}
+        handleLogout={this.props.handleLogout}
       />
     );
   }

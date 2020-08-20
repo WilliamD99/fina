@@ -48,6 +48,7 @@ export default function Header(props) {
             symbols={props.symbols}
             handleSymbol={props.handleSymbol}
             handleLoading={props.handleLoading}
+            handleLogout={props.handleLogout}
           />
         </Hidden>
         <Hidden mdUp implementation="css">
