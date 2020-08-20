@@ -77,12 +77,7 @@ export default function Admin({ ...rest }) {
       );
     }
   };
-  const switchRoutes = (
-    <Switch>
-      {getRoutes()}
-      <Redirect from="/admin" to="/admin/dashboard" />
-    </Switch>
-  );
+  const switchRoutes = <>{getRoutes()}</>;
   // styles
   const classes = useStyles();
 

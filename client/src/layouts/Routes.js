@@ -27,15 +27,21 @@ export default function Routes(props) {
       />
       <Route
         path="/admin/dashboard"
-        render={() =>
-          authenticated ? (
-            <DC handleLogout={handleLogout} />
-          ) : (
-            history.push("/login")
-          )
-        }
+        render={() => <DC handleLogout={handleLogout} />}
+        exact
       />
-      <Redirect from="/" to="/login" />
+      <Route
+        path="/admin/about"
+        render={() => <DC handleLogout={handleLogout} />}
+        exact
+      />
+      <Route
+        path="/admin/finance"
+        render={() => <DC handleLogout={handleLogout} />}
+        exact
+      />
+      <Redirect from="/" to="/login" exact />
+      <Redirect from="/admin" to="/admin/dashboard" />
     </Switch>
   );
 }
