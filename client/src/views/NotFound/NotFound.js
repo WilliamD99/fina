@@ -7,8 +7,8 @@ export default function NotFound(props) {
     <div className="wrapper">
       <h1>404</h1>
       <p>
-        Seems that you're lost in NoWhere Land. Let me help you get back home
-        safety.
+        Hmm, seems that you're lost in NoWhere Land. Let me help you get back
+        home safety.
       </p>
       <div className="button ">
         <Link onClick={() => props.history.goBack()}>Back</Link>

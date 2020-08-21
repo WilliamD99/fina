@@ -111,6 +111,10 @@ export default function Signup() {
     );
   }
 
+  // Get screen's width for tooltips
+  let width = window.screen.width,
+    direction = width < 768 ? "" : "right";
+
   function renderForm() {
     return (
       <QueueAnim
@@ -148,7 +152,7 @@ export default function Signup() {
                   </>
                 }
                 arrow
-                placement="right"
+                placement={direction}
               >
                 <FormControl
                   type="password"
