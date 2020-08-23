@@ -18,7 +18,7 @@ import Divider from "@material-ui/core/Divider";
 import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
 
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import Person from "@material-ui/icons/Person";
+import SettingsIcon from "@material-ui/icons/Settings";
 
 const useStyles = makeStyles(styles);
 
@@ -66,9 +66,9 @@ export default function AdminNavbarLinks(props) {
             onClick={handleClickProfile}
             className={classes.buttonLink}
           >
-            <ExitToAppIcon className={classes.icons} />
+            <SettingsIcon className={classes.icons} />
             <Hidden mdUp implementation="css">
-              <p className={classes.linkText}>Sign out</p>
+              <p className={classes.linkText}>Setting</p>
             </Hidden>
           </Button>
           <Poppers

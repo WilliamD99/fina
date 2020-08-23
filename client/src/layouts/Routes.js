@@ -1,18 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import DC from "layouts/DC";
 import Login from "views/Login/Login";
 import Signup from "views/Signup/Signup";
+import Reset from "views/ForgetPW/ResetPW";
 import { useHistory } from "react-router-dom";
 import NotFound from "views/NotFound/NotFound";
 import { useAppContext } from "libs/contextLibs";
+import Verification from "views/Verification/Verification";
+import { Auth } from "aws-amplify";
 
 export default function Routes(props) {
-  const { handleLogout, authenticated } = props;
+  const { handleLogout } = props;
+
   const history = useHistory();
   const { isAuthenticated } = useAppContext();
 
-  console.log(isAuthenticated);
   return (
     <Switch>
       <Route
@@ -29,6 +32,13 @@ export default function Routes(props) {
         }
         exact
       />
+      <Route
+        path="/reset"
+        render={() =>
+          isAuthenticated ? history.push("/admin/dashboard") : <Reset />
+        }
+      />
+      <Route path="/verify" component={Verification} />
       <Route
         path="/admin/dashboard"
         render={() =>
@@ -62,6 +72,7 @@ export default function Routes(props) {
         }
         exact
       />
+
       <Redirect from="/" to="/login" exact />
       <Redirect from="/admin" to="/admin/dashboard" exact />
       <Route component={NotFound} />

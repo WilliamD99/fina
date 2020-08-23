@@ -129,9 +129,8 @@ export default function Admin({ ...rest }) {
     <div className={classes.wrapper}>
       <Sidebar
         routes={routes}
-        logoText={
-          isEmpty(rest.profile) !== true ? rest.profile.name : rest.search
-        }
+        compName={rest.profile !== undefined ? rest.profile.name : ""}
+        userInfo={rest.user !== undefined ? rest.user : ""}
         link={rest.profile !== undefined ? rest.profile.weburl : ""}
         image={image}
         handleDrawerToggle={handleDrawerToggle}

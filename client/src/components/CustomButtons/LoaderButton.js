@@ -14,7 +14,11 @@ export default function LoaderButton({
       disabled={disabled || isLoading}
       {...props}
     >
-      {isLoading && <CircularProgress />}
+      {isLoading && (
+        <div className="loading-circle">
+          <CircularProgress className="loaderButton" />
+        </div>
+      )}
       {props.children}
     </Button>
   );

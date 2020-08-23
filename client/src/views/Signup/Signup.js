@@ -14,6 +14,7 @@ import QueueAnim from "rc-queue-anim";
 
 export default function Signup() {
   const [fields, handleFieldChange] = useFormFields({
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -47,6 +48,9 @@ export default function Signup() {
       const newUser = await Auth.signUp({
         username: fields.email,
         password: fields.password,
+        attributes: {
+          "custom:preferUsername": fields.username,
+        },
       });
       setIsLoading(false);
       setNewUser(newUser);
@@ -129,6 +133,15 @@ export default function Signup() {
               Welcome to <span>Fina</span>
             </h4>
             <p className="title">Sign up to view today's stock market:</p>
+            <FormGroup controlId="username" bsSize="large">
+              <FormLabel>User name</FormLabel>
+              <FormControl
+                autoFocus
+                type="text"
+                value={fields.username}
+                onChange={handleFieldChange}
+              />
+            </FormGroup>
             <FormGroup controlId="email" bsSize="large">
               <FormLabel>Email</FormLabel>
               <FormControl

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Admin from "./Admin";
 import axios from "axios";
+import { Auth } from "aws-amplify";
 
 export default class DC extends Component {
   state = {
@@ -24,25 +25,6 @@ export default class DC extends Component {
       earning: undefined,
     });
   };
-
-  // Add candle data for peer
-  // addPeer = (e) => {
-  //   console.log("This function is running", e);
-
-  //   axios
-  //     .get(`/candle`, {
-  //       headers: {
-  //         comp: e,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       let data = res.data;
-  //       console.log(data);
-  //       this.setState({
-  //         candlePeer: data,
-  //       });
-  //     });
-  // };
 
   quoteRoute = `/quote`;
 
@@ -88,13 +70,15 @@ export default class DC extends Component {
     },
   });
 
-  // candleCurrencyRequest = axios.get("/candleCurrency", {
-  //   headers: {
-  //     rate: [this.state.from, this.state.to],
-  //   },
-  // });
-
   componentDidMount() {
+    // Get current user info
+    let user = Auth.currentUserInfo();
+    user.then((res) => {
+      this.setState({
+        user: res.attributes,
+      });
+    });
+
     axios
       .all([
         this.candleRequest,
@@ -279,6 +263,7 @@ export default class DC extends Component {
   render() {
     return (
       <Admin
+        user={this.state.user}
         search={this.state.search}
         candle={this.state.candle}
         profile={this.state.profile}

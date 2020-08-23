@@ -5,6 +5,6 @@ export function onError(error) {
   if (!(error instanceof Error) && error.message) {
     message = error.message;
   }
-
-  alert(message);
+  // message === "User does not exist." ? alert(message) : alert(message);
+  return message;
 }

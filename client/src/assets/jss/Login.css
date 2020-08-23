@@ -8,8 +8,8 @@
 }
 
 #signup {
-  -webkit-transform: translateY(35%);
-          transform: translateY(35%);
+  -webkit-transform: translateY(25%);
+          transform: translateY(25%);
 }
 
 #signup .left {
@@ -17,12 +17,40 @@
 }
 
 #verification {
-  -webkit-transform: translateY(50%);
-          transform: translateY(50%);
+  -webkit-transform: translateY(40%);
+          transform: translateY(40%);
 }
 
 #verification .left {
   width: 0;
+}
+
+#verification .btn-container {
+  -webkit-box-orient: horizontal !important;
+  -webkit-box-direction: normal !important;
+      -ms-flex-direction: row !important;
+          flex-direction: row !important;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+}
+
+#reset {
+  -webkit-transform: translateY(50%);
+          transform: translateY(50%);
+}
+
+#reset #requestCodeForm {
+  -webkit-transform: translateY(35%);
+          transform: translateY(35%);
+}
+
+.btn-container {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 @media only screen and (min-width: 768px) {
@@ -36,6 +64,10 @@
   }
   #verification .left {
     background-image: url("../confirm.webp");
+    width: 18vw;
+  }
+  #reset .left {
+    background-image: url("../confirm.jpg");
     width: 18vw;
   }
 }
@@ -325,5 +357,34 @@
   -webkit-transition: 0.3s;
   transition: 0.3s;
   z-index: -1;
+}
+
+.loaderButton {
+  position: absolute;
+  left: 50%;
+}
+
+@media all and (min-width: 480px) {
+  .ResetPassword {
+    padding: 60px 0;
+  }
+  .ResetPassword form {
+    margin: 0 auto;
+    max-width: 320px;
+  }
+  .ResetPassword .success {
+    max-width: 400px;
+  }
+}
+
+.ResetPassword .success {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.ResetPassword .success .glyphicon {
+  color: grey;
+  font-size: 30px;
+  margin-bottom: 30px;
 }
 /*# sourceMappingURL=Login.css.map */

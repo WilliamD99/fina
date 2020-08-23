@@ -25,9 +25,10 @@ export default function Sidebar(props) {
     return window.location.href.indexOf(routeName) > -1 ? true : false;
   }
   const {
+    userInfo,
+    compName,
     color,
     image,
-    logoText,
     routes,
     link,
     floors,
@@ -35,6 +36,7 @@ export default function Sidebar(props) {
     handleSymbol,
     handleLoading,
   } = props;
+
   var links = (
     <>
       {routes.map((prop, key) => {
@@ -98,7 +100,7 @@ export default function Sidebar(props) {
         })} side-name`}
         target="_blank"
       >
-        {logoText}
+        {compName}
       </a>
     </div>
   );

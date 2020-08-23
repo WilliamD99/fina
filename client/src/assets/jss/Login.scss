@@ -7,16 +7,32 @@ $primary: rgb(182, 157, 230);
   }
 }
 #signup {
-  transform: translateY(35%);
+  transform: translateY(25%);
   .left {
     width: 0;
   }
 }
 #verification {
-  transform: translateY(50%);
+  transform: translateY(40%);
   .left {
     width: 0;
   }
+  .btn-container {
+    flex-direction: row !important;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+#reset {
+  transform: translateY(50%);
+  #requestCodeForm {
+    transform: translateY(35%);
+  }
+}
+
+.btn-container {
+  flex-direction: column;
 }
 
 @media only screen and (min-width: 768px) {
@@ -35,6 +51,12 @@ $primary: rgb(182, 157, 230);
   #verification {
     .left {
       background-image: url("../confirm.webp");
+      width: 18vw;
+    }
+  }
+  #reset {
+    .left {
+      background-image: url("../confirm.jpg");
       width: 18vw;
     }
   }
@@ -261,4 +283,34 @@ $primary: rgb(182, 157, 230);
       z-index: -1;
     }
   }
+}
+
+.loaderButton {
+  position: absolute;
+  left: 50%;
+}
+
+@media all and (min-width: 480px) {
+  .ResetPassword {
+    padding: 60px 0;
+  }
+
+  .ResetPassword form {
+    margin: 0 auto;
+    max-width: 320px;
+  }
+
+  .ResetPassword .success {
+    max-width: 400px;
+  }
+}
+
+.ResetPassword .success {
+  margin: 0 auto;
+  text-align: center;
+}
+.ResetPassword .success .glyphicon {
+  color: grey;
+  font-size: 30px;
+  margin-bottom: 30px;
 }

@@ -42,15 +42,22 @@ export default function Login() {
     return fields.email.length > 0 && fields.password.length > 0;
   };
 
+  async function handleLogin(e) {
+    e.preventDefault();
+    await Auth.signIn(fields.email, fields.password);
+    history.push("/verify");
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
     try {
       await Auth.signIn(fields.email, fields.password);
+
       userHasAuthenticated(true);
-      history.push("/admin/dashboard");
     } catch (e) {
-      onError(e);
+      let err = onError(e);
+      err === "User is not confirmed." ? history.push("/verify") : alert(err);
       setIsLoading(false);
     }
   }
@@ -88,9 +95,14 @@ export default function Login() {
             />
           </FormGroup>
           <div className="d-flex action-container">
-            <LinkContainer to="/signup">
-              <NavItem>Sign up</NavItem>
-            </LinkContainer>
+            <div className="d-flex btn-container">
+              <LinkContainer to="/signup">
+                <NavItem>Sign up</NavItem>
+              </LinkContainer>
+              <LinkContainer to="/reset">
+                <NavItem>Forgot password?</NavItem>
+              </LinkContainer>
+            </div>
 
             <LoaderBtn
               block
