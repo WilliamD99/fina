@@ -314,3 +314,18 @@ $primary: rgb(182, 157, 230);
   font-size: 30px;
   margin-bottom: 30px;
 }
+
+// Profile
+.profile {
+  width: 50%;
+  transform: translateX(50%);
+}
+
+.img-wrapper {
+  flex-direction: row;
+  justify-content: space-evenly;
+  img {
+    width: 10rem;
+    height: 10vh;
+  }
+}

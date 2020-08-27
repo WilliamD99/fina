@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Route } from "react-router-dom";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
@@ -16,15 +16,15 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 import "assets/jss/customize.css";
 
-import bgImage from "assets/img/sidebar-2.jpg";
-
 import DashBoard from "views/Dashboard/Dashboard";
-import About from "views/UserProfile/UserProfile";
+import About from "views/About/About";
 import Finance from "views/TableList/TableList";
+import Profile from "views/Profile/Profile";
+
 let ps;
 
 const useStyles = makeStyles(styles);
-
+// This component is used to handling routes, data within the app
 export default function Admin({ ...rest }) {
   let getRoutes = () => {
     if (
@@ -67,6 +67,20 @@ export default function Admin({ ...rest }) {
               return <Finance basic={rest.basic} />;
             }}
           />
+          <Route
+            path="/admin/profile"
+            render={() => {
+              return (
+                <Profile
+                  handleColorClick={handleColorClick}
+                  user={rest.user}
+                  bgColor={userColor}
+                  handleImageClick={handleImageClick}
+                  bgImage={image}
+                />
+              );
+            }}
+          />
         </>
       );
     } else {
@@ -84,9 +98,22 @@ export default function Admin({ ...rest }) {
   // ref to help us initialize PerfectScrollbar on windows devices
   const mainPanel = React.createRef();
   // states and functions
-  const [image, setImage] = React.useState(bgImage);
-  const [color, setColor] = React.useState("blue");
+  // Init color theme based on user's attributes
+  const userColor = rest.user["custom:color"];
+  const [color, setColor] = React.useState(userColor);
+
+  // Init background image
+  const userBg = rest.user["custom:image"];
+  const [image, setImage] = React.useState(userBg);
+  const handleImageClick = (image) => {
+    setImage(image);
+  };
+  console.log(rest.user);
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const handleColorClick = (color) => {
+    setColor(color);
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -118,13 +145,6 @@ export default function Admin({ ...rest }) {
     };
   }, [mainPanel]);
 
-  // Check if Object is empty
-  let isEmpty = (obj) => {
-    for (var key in obj) {
-      if (obj.hasOwnProperty(key)) return false;
-    }
-    return true;
-  };
   return (
     <div className={classes.wrapper}>
       <Sidebar

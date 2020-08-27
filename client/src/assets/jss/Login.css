@@ -387,4 +387,25 @@
   font-size: 30px;
   margin-bottom: 30px;
 }
+
+.profile {
+  width: 50%;
+  -webkit-transform: translateX(50%);
+          transform: translateX(50%);
+}
+
+.img-wrapper {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.img-wrapper img {
+  width: 10rem;
+  height: 10vh;
+}
 /*# sourceMappingURL=Login.css.map */

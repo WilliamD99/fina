@@ -42,7 +42,7 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-export default function UserProfile(props) {
+export default function About(props) {
   const classes = useStyles();
 
   const { profile, news } = props;

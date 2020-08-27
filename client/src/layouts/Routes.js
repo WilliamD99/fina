@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import DC from "layouts/DC";
 import Login from "views/Login/Login";
@@ -8,7 +8,6 @@ import { useHistory } from "react-router-dom";
 import NotFound from "views/NotFound/NotFound";
 import { useAppContext } from "libs/contextLibs";
 import Verification from "views/Verification/Verification";
-import { Auth } from "aws-amplify";
 
 export default function Routes(props) {
   const { handleLogout } = props;
@@ -71,6 +70,16 @@ export default function Routes(props) {
           )
         }
         exact
+      />
+      <Route
+        path="/admin/profile"
+        render={() =>
+          isAuthenticated ? (
+            <DC handleLogout={handleLogout} />
+          ) : (
+            history.push("/login")
+          )
+        }
       />
 
       <Redirect from="/" to="/login" exact />

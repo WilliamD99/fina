@@ -50,6 +50,8 @@ export default function Signup() {
         password: fields.password,
         attributes: {
           "custom:preferUsername": fields.username,
+          "custom:color": "blue",
+          "custom:image": "/static/media/sidebar-3.25031690.jpg",
         },
       });
       setIsLoading(false);

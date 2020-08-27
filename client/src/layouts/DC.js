@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Admin from "./Admin";
 import axios from "axios";
 import { Auth } from "aws-amplify";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default class DC extends Component {
   state = {
@@ -261,24 +262,32 @@ export default class DC extends Component {
   }
 
   render() {
-    return (
-      <Admin
-        user={this.state.user}
-        search={this.state.search}
-        candle={this.state.candle}
-        profile={this.state.profile}
-        symbols={this.state.symbols}
-        floors={this.state.floors}
-        peers={this.state.peers}
-        peerData={this.state.peerData}
-        news={this.state.news}
-        basic={this.state.basic}
-        buy={this.state.buy}
-        earning={this.state.earning}
-        handleSymbol={this.handleSymbol}
-        handleLoading={this.handleLoading}
-        handleLogout={this.props.handleLogout}
-      />
-    );
+    if (this.state.user !== undefined) {
+      return (
+        <Admin
+          user={this.state.user}
+          search={this.state.search}
+          candle={this.state.candle}
+          profile={this.state.profile}
+          symbols={this.state.symbols}
+          floors={this.state.floors}
+          peers={this.state.peers}
+          peerData={this.state.peerData}
+          news={this.state.news}
+          basic={this.state.basic}
+          buy={this.state.buy}
+          earning={this.state.earning}
+          handleSymbol={this.handleSymbol}
+          handleLoading={this.handleLoading}
+          handleLogout={this.props.handleLogout}
+        />
+      );
+    } else {
+      return (
+        <div className="loading-circle">
+          <CircularProgress color="secondary" />
+        </div>
+      );
+    }
   }
 }

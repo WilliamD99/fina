@@ -14,10 +14,10 @@ import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import Divider from "@material-ui/core/Divider";
+import { Link } from "react-router-dom";
 
 import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
 
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import SettingsIcon from "@material-ui/icons/Settings";
 
 const useStyles = makeStyles(styles);
@@ -94,6 +94,13 @@ export default function AdminNavbarLinks(props) {
                 <Paper>
                   <ClickAwayListener onClickAway={handleCloseProfile}>
                     <MenuList role="menu">
+                      <Link
+                        to="/admin/profile"
+                        className={`${classes.dropdownItem} logout`}
+                      >
+                        Account
+                      </Link>
+                      <Divider />
                       <MenuItem
                         onClick={props.handleLogout}
                         className={`${classes.dropdownItem} logout`}
