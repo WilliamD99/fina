@@ -9,6 +9,8 @@ import NotFound from "views/NotFound/NotFound";
 import { useAppContext } from "libs/contextLibs";
 import Verification from "views/Verification/Verification";
 
+import Download from "views/Download/DownLoad";
+
 export default function Routes(props) {
   const { handleLogout } = props;
 
@@ -81,7 +83,10 @@ export default function Routes(props) {
           )
         }
       />
-
+      <Route
+        path="/admin/download"
+        render={() => (isAuthenticated ? <Download /> : history.push("/login"))}
+      />
       <Redirect from="/" to="/login" exact />
       <Redirect from="/admin" to="/admin/dashboard" exact />
       <Route component={NotFound} />

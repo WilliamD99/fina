@@ -45,6 +45,7 @@ export default function Login() {
   async function handleLogin(e) {
     e.preventDefault();
     await Auth.signIn(fields.email, fields.password);
+
     history.push("/verify");
   }
 

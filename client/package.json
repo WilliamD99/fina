@@ -20,6 +20,7 @@
     "classnames": "2.2.6",
     "create-react-class": "^15.6.3",
     "dotenv": "^8.2.0",
+    "downloadjs": "^1.4.7",
     "highcharts": "^8.1.2",
     "highcharts-react-official": "^3.0.0",
     "history": "4.10.1",
