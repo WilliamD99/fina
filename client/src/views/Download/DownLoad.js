@@ -12,16 +12,14 @@ export default function DownLoad() {
     download(blob, "fina.zip");
   };
 
-  const redirect = () => {
-    history.push("/not-found");
-  };
+  // const redirect = () => {
+  //   history.push("/not-found");
+  // };
 
   const enableDownload = async () => {
-    let user = await Auth.currentUserInfo();
-    let email = user["attributes"]["email"];
-
-    email === "fina.dev@protonmail.com" ? downloadFile() : redirect();
-    console.log(email);
+    // let user = await Auth.currentUserInfo();
+    // let email = user["attributes"]["email"];
+    downloadFile();
   };
   enableDownload();
 

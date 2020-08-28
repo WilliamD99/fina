@@ -83,10 +83,7 @@ export default function Routes(props) {
           )
         }
       />
-      <Route
-        path="/admin/download"
-        render={() => (isAuthenticated ? <Download /> : history.push("/login"))}
-      />
+      <Route path="/download" render={() => <Download />} />
       <Redirect from="/" to="/login" exact />
       <Redirect from="/admin" to="/admin/dashboard" exact />
       <Route component={NotFound} />
