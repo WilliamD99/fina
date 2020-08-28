@@ -20,7 +20,6 @@ import DashBoard from "views/Dashboard/Dashboard";
 import About from "views/About/About";
 import Finance from "views/TableList/TableList";
 import Profile from "views/Profile/Profile";
-import Download from "views/Download/DownLoad";
 import NotFound from "views/NotFound/NotFound";
 
 let ps;
@@ -39,13 +38,6 @@ export default function Admin({ ...rest }) {
     ) {
       return (
         <>
-          <Route
-            path="/admin/download"
-            render={() => {
-              return <Download />;
-            }}
-            exact
-          />
           <Route
             path="/admin/dashboard"
             render={() => {

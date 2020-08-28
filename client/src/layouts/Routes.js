@@ -9,81 +9,66 @@ import NotFound from "views/NotFound/NotFound";
 import { useAppContext } from "libs/contextLibs";
 import Verification from "views/Verification/Verification";
 
-import Download from "views/Download/DownLoad";
-
 export default function Routes(props) {
   const { handleLogout } = props;
 
   const history = useHistory();
   const { isAuthenticated } = useAppContext();
 
+  const appRoutes = ["dashboard", "about", "finance", "profile"];
+  const authRoutes = [
+    {
+      path: "login",
+      component: <Login />,
+    },
+    {
+      path: "signup",
+      component: <Signup />,
+    },
+    {
+      path: "reset",
+      component: <Reset />,
+    },
+    {
+      path: "verify",
+      component: <Verification />,
+    },
+  ];
+
+  const appRouteConstructor = appRoutes.map((route, i) => {
+    return (
+      <Route
+        key={i}
+        path={`/admin/${route}`}
+        render={() =>
+          isAuthenticated ? (
+            <DC handleLogout={handleLogout} />
+          ) : (
+            history.push("/login")
+          )
+        }
+        exact
+      />
+    );
+  });
+
+  const authRouteConstructor = authRoutes.map((route, i) => {
+    return (
+      <Route
+        key={i}
+        path={`/${route.path}`}
+        render={() =>
+          isAuthenticated ? history.push("/admin/dashboard") : route.component
+        }
+      />
+    );
+  });
+
   return (
     <Switch>
-      <Route
-        path="/login"
-        render={() =>
-          isAuthenticated ? history.push("/admin/dashboard") : <Login />
-        }
-        exact
-      />
-      <Route
-        path="/signup"
-        render={() =>
-          isAuthenticated ? history.push("/admin/dashboard") : <Signup />
-        }
-        exact
-      />
-      <Route
-        path="/reset"
-        render={() =>
-          isAuthenticated ? history.push("/admin/dashboard") : <Reset />
-        }
-      />
-      <Route path="/verify" component={Verification} />
-      <Route
-        path="/admin/dashboard"
-        render={() =>
-          isAuthenticated ? (
-            <DC handleLogout={handleLogout} />
-          ) : (
-            history.push("/login")
-          )
-        }
-        exact
-      />
-      <Route
-        path="/admin/about"
-        render={() =>
-          isAuthenticated ? (
-            <DC handleLogout={handleLogout} />
-          ) : (
-            history.push("/login")
-          )
-        }
-        exact
-      />
-      <Route
-        path="/admin/finance"
-        render={() =>
-          isAuthenticated ? (
-            <DC handleLogout={handleLogout} />
-          ) : (
-            history.push("/login")
-          )
-        }
-        exact
-      />
-      <Route
-        path="/admin/profile"
-        render={() =>
-          isAuthenticated ? (
-            <DC handleLogout={handleLogout} />
-          ) : (
-            history.push("/login")
-          )
-        }
-      />
-      <Route path="/download" render={() => <Download />} />
+      {authRouteConstructor}
+      {appRouteConstructor}
+
       <Redirect from="/" to="/login" exact />
       <Redirect from="/admin" to="/admin/dashboard" exact />
       <Route component={NotFound} />
