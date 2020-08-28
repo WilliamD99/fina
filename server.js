@@ -23,7 +23,6 @@ const basic = require("./routes/basicF");
 const buy = require("./routes/buy");
 const earning = require("./routes/earning");
 const candleCurrency = require("./routes/candleCurrency");
-const download = require("./routes/download");
 
 app.use("/candle", candle);
 app.use("/profile", profile);
@@ -36,7 +35,6 @@ app.use("/basic", basic);
 app.use("/buy", buy);
 app.use("/earn", earning);
 app.use("/candleCurrency", candleCurrency);
-app.use("/download", download);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "client/build")));
