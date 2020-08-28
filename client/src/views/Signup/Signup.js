@@ -82,7 +82,7 @@ export default function Signup() {
   function renderConfirmationForm() {
     return (
       <QueueAnim
-        delay={300}
+        delay={200}
         type={["right", "left"]}
         ease={["easeOutQuart", "easeInOutQuart"]}
       >
@@ -124,7 +124,7 @@ export default function Signup() {
   function renderForm() {
     return (
       <QueueAnim
-        delay={300}
+        delay={200}
         type={["right", "left"]}
         ease={["easeOutQuart", "easeInOutQuart"]}
       >

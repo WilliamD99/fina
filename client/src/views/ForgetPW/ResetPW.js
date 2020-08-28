@@ -9,6 +9,7 @@ import { NavItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import "assets/jss/Login.css";
 import CheckIcon from "@material-ui/icons/Check";
+import QueueAnim from "rc-queue-anim";
 
 export default function ResetPassword() {
   const [fields, handleFieldChange] = useFormFields({
@@ -68,76 +69,88 @@ export default function ResetPassword() {
 
   function renderRequestCodeForm() {
     return (
-      <form onSubmit={handleSendCodeClick} id="requestCodeForm">
-        <h4>Reset your password</h4>
-        <FormGroup bsSize="large" controlId="email">
-          <FormLabel>Email</FormLabel>
-          <FormControl
-            autoFocus
-            type="email"
-            value={fields.email}
-            onChange={handleFieldChange}
-          />
-        </FormGroup>
-        <div className="d-flex action-container">
-          <LinkContainer to="/login">
-            <NavItem>Login</NavItem>
-          </LinkContainer>
+      <QueueAnim
+        delay={200}
+        type={["right", "left"]}
+        ease={["easeOutQuart", "easeInOutQuart"]}
+      >
+        <form onSubmit={handleSendCodeClick} id="requestCodeForm">
+          <h4>Reset your password</h4>
+          <FormGroup bsSize="large" controlId="email">
+            <FormLabel>Email</FormLabel>
+            <FormControl
+              autoFocus
+              type="email"
+              value={fields.email}
+              onChange={handleFieldChange}
+            />
+          </FormGroup>
+          <div className="d-flex action-container">
+            <LinkContainer to="/login">
+              <NavItem>Login</NavItem>
+            </LinkContainer>
 
-          <LoaderButton
-            block
-            type="submit"
-            bsSize="large"
-            isLoading={isSendingCode}
-            disabled={!validateCodeForm()}
-          >
-            Send Confirmation
-          </LoaderButton>
-        </div>
-      </form>
+            <LoaderButton
+              block
+              type="submit"
+              bsSize="large"
+              isLoading={isSendingCode}
+              disabled={!validateCodeForm()}
+            >
+              Send Confirmation
+            </LoaderButton>
+          </div>
+        </form>
+      </QueueAnim>
     );
   }
 
   function renderConfirmationForm() {
     return (
-      <form onSubmit={handleConfirmClick}>
-        <h4>Reset your password</h4>
-        <FormGroup bsSize="large" controlId="code">
-          <FormLabel>Confirmation Code</FormLabel>
-          <FormControl
-            autoFocus
-            type="tel"
-            value={fields.code}
-            onChange={handleFieldChange}
-          />
-        </FormGroup>
-        <hr />
-        <FormGroup bsSize="large" controlId="password">
-          <FormLabel>New Password</FormLabel>
-          <FormControl
-            type="password"
-            value={fields.password}
-            onChange={handleFieldChange}
-          />
-        </FormGroup>
-        <FormGroup bsSize="large" controlId="confirmPassword">
-          <FormLabel>Confirm Password</FormLabel>
-          <FormControl
-            type="password"
-            value={fields.confirmPassword}
-            onChange={handleFieldChange}
-          />
-        </FormGroup>
-        <LoaderButton
-          block
-          type="submit"
-          bsSize="large"
-          isLoading={isConfirming}
-          disabled={!validateResetForm()}
-        >
-          Confirm
-        </LoaderButton>
-      </form>
+      <QueueAnim
+        delay={200}
+        type={["right", "left"]}
+        ease={["easeOutQuart", "easeInOutQuart"]}
+      >
+        <form onSubmit={handleConfirmClick}>
+          <h4>Reset your password</h4>
+          <FormGroup bsSize="large" controlId="code">
+            <FormLabel>Confirmation Code</FormLabel>
+            <FormControl
+              autoFocus
+              type="tel"
+              value={fields.code}
+              onChange={handleFieldChange}
+            />
+          </FormGroup>
+          <hr />
+          <FormGroup bsSize="large" controlId="password">
+            <FormLabel>New Password</FormLabel>
+            <FormControl
+              type="password"
+              value={fields.password}
+              onChange={handleFieldChange}
+            />
+          </FormGroup>
+          <FormGroup bsSize="large" controlId="confirmPassword">
+            <FormLabel>Confirm Password</FormLabel>
+            <FormControl
+              type="password"
+              value={fields.confirmPassword}
+              onChange={handleFieldChange}
+            />
+          </FormGroup>
+          <LoaderButton
+            block
+            type="submit"
+            bsSize="large"
+            isLoading={isConfirming}
+            disabled={!validateResetForm()}
+          >
+            Confirm
+          </LoaderButton>
+        </form>
+      </QueueAnim>
     );
   }
 
