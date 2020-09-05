@@ -14,6 +14,8 @@ import { useHistory } from "react-router-dom";
 import LoaderBtn from "components/CustomButtons/LoaderButton";
 import QueueAnim from "rc-queue-anim";
 import "assets/jss/Login.css";
+import Snackbar from "components/Snackbar/Snackbar";
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 
 require("dotenv").config();
 
@@ -31,6 +33,22 @@ Amplify.configure(config);
 export default function Login() {
   const history = useHistory();
   const { userHasAuthenticated } = useAppContext();
+  // Snackbar
+  const [bc, setBC] = useState(false);
+  const [contents, setContents] = useState();
+  const showNotification = (place, content) => {
+    switch (place) {
+      case "bc":
+        if (!bc) {
+          setBC(true);
+          setContents(content);
+          setTimeout(function () {
+            setBC(false);
+          }, 6000);
+        }
+        break;
+    }
+  };
 
   const [isLoading, setIsLoading] = useState(false);
   const [fields, handleFieldChange] = useFormFields({
@@ -58,65 +76,79 @@ export default function Login() {
       userHasAuthenticated(true);
     } catch (e) {
       let err = onError(e);
-      err === "User is not confirmed." ? history.push("/verify") : alert(err);
+      err === "User is not confirmed."
+        ? history.push("/verify")
+        : showNotification("bc", err);
       setIsLoading(false);
     }
   }
 
   return (
-    <QueueAnim
-      delay={300}
-      type={["right", "left"]}
-      ease={["easeOutQuart", "easeInOutQuart"]}
-    >
-      <div key="login" className="authenticate-page" id="login">
-        <div className="left"></div>
-        <form onSubmit={handleSubmit}>
-          <h4>
-            Welcome back to <span>Fina</span>
-          </h4>
-          <p className="title">
-            Log in to your account to view today's stock market:
-          </p>
-          <FormGroup controlId="email" size="large">
-            <FormLabel>Email</FormLabel>
-            <FormControl
-              autoFocus
-              type="email"
-              value={fields.email}
-              onChange={handleFieldChange}
-            />
-          </FormGroup>
-          <FormGroup controlId="password" size="large">
-            <FormLabel>Password</FormLabel>
-            <FormControl
-              value={fields.password}
-              onChange={handleFieldChange}
-              type="password"
-            />
-          </FormGroup>
-          <div className="d-flex action-container">
-            <div className="d-flex btn-container">
-              <LinkContainer to="/signup">
-                <NavItem>Sign up</NavItem>
-              </LinkContainer>
-              <LinkContainer to="/reset">
-                <NavItem>Forgot password?</NavItem>
-              </LinkContainer>
-            </div>
+    <>
+      <QueueAnim
+        delay={300}
+        type={["right", "left"]}
+        ease={["easeOutQuart", "easeInOutQuart"]}
+      >
+        <div key="login" className="authenticate-page" id="login">
+          <div className="left"></div>
+          <form onSubmit={handleSubmit}>
+            <h4>
+              Welcome back to <span>Fina</span>
+            </h4>
+            <p className="title">
+              Log in to your account to view today's stock market:
+            </p>
+            <FormGroup controlId="email" size="large">
+              <FormLabel>Email</FormLabel>
+              <FormControl
+                autoFocus
+                type="email"
+                value={fields.email}
+                onChange={handleFieldChange}
+              />
+            </FormGroup>
+            <FormGroup controlId="password" size="large">
+              <FormLabel>Password</FormLabel>
+              <FormControl
+                value={fields.password}
+                onChange={handleFieldChange}
+                type="password"
+              />
+            </FormGroup>
+            <div className="d-flex action-container">
+              <div className="d-flex btn-container">
+                <LinkContainer to="/signup">
+                  <NavItem>Sign up</NavItem>
+                </LinkContainer>
+                <LinkContainer to="/reset">
+                  <NavItem>Forgot password?</NavItem>
+                </LinkContainer>
+              </div>
 
-            <LoaderBtn
-              block
-              type="submit"
-              size="small"
-              isLoading={isLoading}
-              disabled={!validateForm()}
-            >
-              Login
-            </LoaderBtn>
-          </div>
-        </form>
-      </div>
-    </QueueAnim>
+              <LoaderBtn
+                block
+                type="submit"
+                size="small"
+                isLoading={isLoading}
+                disabled={!validateForm()}
+              >
+                Login
+              </LoaderBtn>
+            </div>
+          </form>
+        </div>
+      </QueueAnim>
+      <Snackbar
+        place="bc"
+        color="danger"
+        icon={ErrorOutlineIcon}
+        message={contents}
+        open={bc}
+        closeNotification={() => setBC(false)}
+        close
+        className="login-warning"
+      />
+    </>
   );
 }

@@ -35,6 +35,20 @@ $primary: rgb(182, 157, 230);
   flex-direction: column;
 }
 
+.login-warning {
+  font-size: 12px !important;
+  padding: 12px 10px;
+}
+
+.tooltip-pw {
+  list-style: none;
+  .pw-validate {
+    font-size: 1rem !important;
+    color: green;
+    margin-right: 0.3rem;
+  }
+}
+
 @media only screen and (min-width: 768px) {
   #login {
     .left {

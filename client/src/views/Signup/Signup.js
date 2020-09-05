@@ -11,6 +11,10 @@ import { NavItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import Tooltip from "@material-ui/core/Tooltip";
 import QueueAnim from "rc-queue-anim";
+import CheckIcon from "@material-ui/icons/Check";
+import ClearIcon from "@material-ui/icons/Clear";
+import Snackbar from "components/Snackbar/Snackbar";
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 
 export default function Signup() {
   const [fields, handleFieldChange] = useFormFields({
@@ -24,6 +28,22 @@ export default function Signup() {
   const [newUser, setNewUser] = useState(null);
   const { userHasAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
+  // Snackbar
+  const [bc, setBC] = useState(false);
+  const [contents, setContents] = useState();
+  const showNotification = (place, content) => {
+    switch (place) {
+      case "bc":
+        if (!bc) {
+          setBC(true);
+          setContents(content);
+          setTimeout(function () {
+            setBC(false);
+          }, 6000);
+        }
+        break;
+    }
+  };
 
   function validateForm() {
     return (
@@ -57,7 +77,10 @@ export default function Signup() {
       setIsLoading(false);
       setNewUser(newUser);
     } catch (e) {
-      onError(e);
+      let err = onError(e);
+      err === "An account with the given email already exists."
+        ? showNotification("bc", err)
+        : console.log(err);
       setIsLoading(false);
     }
   }
@@ -74,7 +97,8 @@ export default function Signup() {
       userHasAuthenticated(true);
       history.push("/admin/dashboard");
     } catch (e) {
-      onError(e);
+      let err = onError(e);
+      alert(err);
       setIsLoading(false);
     }
   }
@@ -123,85 +147,112 @@ export default function Signup() {
 
   function renderForm() {
     return (
-      <QueueAnim
-        delay={200}
-        type={["right", "left"]}
-        ease={["easeOutQuart", "easeInOutQuart"]}
-      >
-        <div key="signup" className="authenticate-page" id="signup">
-          <div className="left"></div>
-          <form onSubmit={handleSubmit}>
-            <h4>
-              Welcome to <span>Fina</span>
-            </h4>
-            <p className="title">Sign up to view today's stock market:</p>
-            <FormGroup controlId="username" bsSize="large">
-              <FormLabel>User name</FormLabel>
-              <FormControl
-                autoFocus
-                type="text"
-                value={fields.username}
-                onChange={handleFieldChange}
-              />
-            </FormGroup>
-            <FormGroup controlId="email" bsSize="large">
-              <FormLabel>Email</FormLabel>
-              <FormControl
-                autoFocus
-                type="email"
-                value={fields.email}
-                onChange={handleFieldChange}
-              />
-            </FormGroup>
-            <FormGroup controlId="password" bsSize="large">
-              <FormLabel>Password</FormLabel>
-              <Tooltip
-                title={
-                  <>
-                    <ul className="tooltip-pw">
-                      <li>Password must have at least 8 characters</li>
-                      <li>Password must have at least one uppercase</li>
-                      <li>Password must have at least one number</li>
-                      <li>Password must have at least one special character</li>
-                    </ul>
-                  </>
-                }
-                arrow
-                placement={direction}
-              >
+      <>
+        <QueueAnim
+          delay={200}
+          type={["right", "left"]}
+          ease={["easeOutQuart", "easeInOutQuart"]}
+        >
+          <div key="signup" className="authenticate-page" id="signup">
+            <div className="left"></div>
+            <form onSubmit={handleSubmit}>
+              <h4>
+                Welcome to <span>Fina</span>
+              </h4>
+              <p className="title">Sign up to view today's stock market:</p>
+              <FormGroup controlId="username" bsSize="large">
+                <FormLabel>User name</FormLabel>
                 <FormControl
-                  type="password"
-                  value={fields.password}
+                  autoFocus
+                  type="text"
+                  value={fields.username}
                   onChange={handleFieldChange}
                 />
-              </Tooltip>
-            </FormGroup>
-            <FormGroup controlId="confirmPassword" bsSize="large">
-              <FormLabel>Confirm Password</FormLabel>
-              <FormControl
-                type="password"
-                onChange={handleFieldChange}
-                value={fields.confirmPassword}
-              />
-            </FormGroup>
-            <div className="d-flex action-container">
-              <LinkContainer to="/login">
-                <NavItem>Have an account?</NavItem>
-              </LinkContainer>
+              </FormGroup>
+              <FormGroup controlId="email" bsSize="large">
+                <FormLabel>Email</FormLabel>
+                <FormControl
+                  autoFocus
+                  type="email"
+                  value={fields.email}
+                  onChange={handleFieldChange}
+                />
+              </FormGroup>
+              <FormGroup controlId="password" bsSize="large">
+                <FormLabel>Password</FormLabel>
+                <Tooltip
+                  title={
+                    <>
+                      <ul className="tooltip-pw">
+                        <li>
+                          <CheckIcon className="pw-validate" />
+                          Password must have at least 8 characters
+                        </li>
+                        <li>
+                          {" "}
+                          <CheckIcon className="pw-validate" />
+                          Password must have at least one uppercase
+                        </li>
+                        <li>
+                          {" "}
+                          <CheckIcon className="pw-validate" />
+                          Password must have at least one number
+                        </li>
+                        <li>
+                          {" "}
+                          <CheckIcon className="pw-validate" />
+                          Password must have at least one special character
+                        </li>
+                      </ul>
+                    </>
+                  }
+                  arrow
+                  placement={direction}
+                >
+                  <FormControl
+                    type="password"
+                    value={fields.password}
+                    onChange={handleFieldChange}
+                  />
+                </Tooltip>
+              </FormGroup>
+              <FormGroup controlId="confirmPassword" bsSize="large">
+                <FormLabel>Confirm Password</FormLabel>
+                <FormControl
+                  type="password"
+                  onChange={handleFieldChange}
+                  value={fields.confirmPassword}
+                />
+              </FormGroup>
+              <div className="d-flex action-container">
+                <LinkContainer to="/login">
+                  <NavItem>Have an account?</NavItem>
+                </LinkContainer>
 
-              <LoaderButton
-                block
-                type="submit"
-                bsSize="large"
-                isLoading={isLoading}
-                disabled={!validateForm()}
-              >
-                Sign up
-              </LoaderButton>
-            </div>
-          </form>
-        </div>
-      </QueueAnim>
+                <LoaderButton
+                  block
+                  type="submit"
+                  bsSize="large"
+                  isLoading={isLoading}
+                  disabled={!validateForm()}
+                >
+                  Sign up
+                </LoaderButton>
+              </div>
+            </form>
+          </div>
+        </QueueAnim>{" "}
+        <Snackbar
+          place="bc"
+          color="danger"
+          icon={ErrorOutlineIcon}
+          message={contents}
+          open={bc}
+          closeNotification={() => setBC(false)}
+          close
+          className="login-warning"
+        />
+      </>
     );
   }
 
