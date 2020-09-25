@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import NotFound from "views/NotFound/NotFound";
 import { useAppContext } from "libs/contextLibs";
 import Verification from "views/Verification/Verification";
+import { Auth } from "aws-amplify";
 
 export default function Routes(props) {
   const { handleLogout } = props;
@@ -42,7 +43,7 @@ export default function Routes(props) {
         path={`/admin/${route}`}
         render={() =>
           isAuthenticated ? (
-            <DC handleLogout={handleLogout} />
+            <DC user={getUser()} handleLogout={handleLogout} />
           ) : (
             history.push("/login")
           )
@@ -63,6 +64,12 @@ export default function Routes(props) {
       />
     );
   });
+  let getUser = async () => {
+    let user = await Auth.currentUserInfo();
+    return user;
+  };
+  // const [userInfo, getUserInfo] = React.useState();
+  // const user = Auth.currentUserInfo().then((res) => getUserInfo(res));
 
   return (
     <Switch>

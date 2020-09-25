@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route } from "react-router-dom";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
@@ -20,13 +20,17 @@ import DashBoard from "views/Dashboard/Dashboard";
 import About from "views/About/About";
 import Finance from "views/TableList/TableList";
 import Profile from "views/Profile/Profile";
-import NotFound from "views/NotFound/NotFound";
+
+import { AppContext } from "libs/contextLibs";
 
 let ps;
 
 const useStyles = makeStyles(styles);
 // This component is used to handling routes, data within the app
 export default function Admin({ ...rest }) {
+  // Get user's data
+  const [userInfo, getUserInfo] = useState();
+
   let getRoutes = () => {
     if (
       rest.candle !== undefined &&
@@ -34,7 +38,8 @@ export default function Admin({ ...rest }) {
       rest.news !== undefined &&
       rest.basic !== undefined &&
       rest.buy !== undefined &&
-      rest.earning !== undefined
+      rest.earning !== undefined &&
+      rest.user !== undefined
     ) {
       return (
         <>
@@ -98,18 +103,20 @@ export default function Admin({ ...rest }) {
 
   // ref to help us initialize PerfectScrollbar on windows devices
   const mainPanel = React.createRef();
-  // states and functions
   // Init color theme based on user's attributes
-  const userColor = rest.user["custom:color"];
+  const userColor =
+    rest.user !== undefined ? rest.user["custom:color"] : "blue";
   const [color, setColor] = React.useState(userColor);
 
   // Init background image
-  const userBg = rest.user["custom:image"];
+  const userBg =
+    rest.user !== undefined
+      ? rest.user["custom:image"]
+      : "/static/media/sidebar-3.25031690.jpg";
   const [image, setImage] = React.useState(userBg);
   const handleImageClick = (image) => {
     setImage(image);
   };
-  console.log(rest.user);
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleColorClick = (color) => {
@@ -147,42 +154,44 @@ export default function Admin({ ...rest }) {
   }, [mainPanel]);
 
   return (
-    <div className={classes.wrapper}>
-      <Sidebar
-        routes={routes}
-        compName={rest.profile !== undefined ? rest.profile.name : ""}
-        userInfo={rest.user !== undefined ? rest.user : ""}
-        link={rest.profile !== undefined ? rest.profile.weburl : ""}
-        image={image}
-        handleDrawerToggle={handleDrawerToggle}
-        open={mobileOpen}
-        color={color}
-        floors={rest.floors}
-        symbols={rest.symbols}
-        handleLoading={rest.handleLoading}
-        handleSymbol={rest.handleSymbol}
-      />
-      <div className={classes.mainPanel} ref={mainPanel}>
-        <Navbar
+    <AppContext.Provider value={{ user: userInfo }}>
+      <div className={classes.wrapper}>
+        <Sidebar
           routes={routes}
+          compName={rest.profile !== undefined ? rest.profile.name : ""}
+          userInfo={rest.user !== undefined ? rest.user : ""}
+          link={rest.profile !== undefined ? rest.profile.weburl : ""}
+          image={image}
           handleDrawerToggle={handleDrawerToggle}
+          open={mobileOpen}
+          color={color}
           floors={rest.floors}
           symbols={rest.symbols}
           handleLoading={rest.handleLoading}
           handleSymbol={rest.handleSymbol}
-          handleDrawerToggle={handleDrawerToggle}
-          handleLogout={rest.handleLogout}
         />
-        {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
-        {getRoute() ? (
-          <div className={classes.content}>
-            <div className={classes.container}>{switchRoutes}</div>
-          </div>
-        ) : (
-          <div className={classes.map}>{switchRoutes}</div>
-        )}
-        {getRoute() ? <Footer /> : null}
+        <div className={classes.mainPanel} ref={mainPanel}>
+          <Navbar
+            routes={routes}
+            handleDrawerToggle={handleDrawerToggle}
+            floors={rest.floors}
+            symbols={rest.symbols}
+            handleLoading={rest.handleLoading}
+            handleSymbol={rest.handleSymbol}
+            handleDrawerToggle={handleDrawerToggle}
+            handleLogout={rest.handleLogout}
+          />
+          {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
+          {getRoute() ? (
+            <div className={classes.content}>
+              <div className={classes.container}>{switchRoutes}</div>
+            </div>
+          ) : (
+            <div className={classes.map}>{switchRoutes}</div>
+          )}
+          {getRoute() ? <Footer /> : null}
+        </div>
       </div>
-    </div>
+    </AppContext.Provider>
   );
 }

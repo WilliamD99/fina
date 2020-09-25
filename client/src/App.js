@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { AppContext } from "libs/contextLibs";
 import { onError } from "libs/errorLibs";
 
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import Routes from "layouts/Routes";
 

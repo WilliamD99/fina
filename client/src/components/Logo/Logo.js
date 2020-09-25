@@ -3,9 +3,6 @@ import Vivus from "vivus";
 import svg from "assets/logo.svg";
 
 export default class Logo extends Component {
-  constructor() {
-    super();
-  }
   componentDidMount() {
     new Vivus("svg_logo", { duration: 200, file: svg }, () => {
       let path = document.getElementsByClassName("path");

@@ -2,14 +2,21 @@ import React, { Component } from "react";
 import Admin from "./Admin";
 import axios from "axios";
 import { Auth } from "aws-amplify";
-import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default class DC extends Component {
+  resolveUser = async (data) => {
+    let userInfo = await data;
+    this.setState({
+      userInfo: userInfo,
+    });
+  };
+
   state = {
     search: "AAPL",
     floor: "US",
-    login: false,
+    userInfo: "",
   };
+
   // Handle search function
   handleSymbol = (e) => {
     this.setState({ search: e });
@@ -70,16 +77,13 @@ export default class DC extends Component {
       comp: this.state.search,
     },
   });
-
-  componentDidMount() {
-    // Get current user info
-    let user = Auth.currentUserInfo();
-    user.then((res) => {
-      this.setState({
-        user: res.attributes,
-      });
+  // Get current user info
+  user = Auth.currentUserInfo().then((res) => {
+    this.setState({
+      user: res.attributes,
     });
-
+  });
+  componentDidMount() {
     axios
       .all([
         this.candleRequest,
@@ -161,40 +165,40 @@ export default class DC extends Component {
     // } else if (prevState.search !== this.state.search) {
     if (prevState.search !== this.state.search) {
       let candleRequest = axios.get(`/candle`, {
-        headers: {
-          comp: this.state.search,
-        },
-      });
-      let profileRequest = axios.get(`/profile`, {
-        headers: {
-          comp: this.state.search,
-        },
-      });
-      let peerRequest = axios.get(`/peers`, {
-        headers: {
-          comp: this.state.search,
-        },
-      });
-      let newsRequest = axios.get(`/news`, {
-        headers: {
-          comp: this.state.search,
-        },
-      });
-      let basicRequest = axios.get(`/basic`, {
-        headers: {
-          comp: this.state.search,
-        },
-      });
-      let buyRequest = axios.get(`/buy`, {
-        headers: {
-          comp: this.state.search,
-        },
-      });
-      let earningRequest = axios.get(`/earn`, {
-        headers: {
-          comp: this.state.search,
-        },
-      });
+          headers: {
+            comp: this.state.search,
+          },
+        }),
+        profileRequest = axios.get(`/profile`, {
+          headers: {
+            comp: this.state.search,
+          },
+        }),
+        peerRequest = axios.get(`/peers`, {
+          headers: {
+            comp: this.state.search,
+          },
+        }),
+        newsRequest = axios.get(`/news`, {
+          headers: {
+            comp: this.state.search,
+          },
+        }),
+        basicRequest = axios.get(`/basic`, {
+          headers: {
+            comp: this.state.search,
+          },
+        }),
+        buyRequest = axios.get(`/buy`, {
+          headers: {
+            comp: this.state.search,
+          },
+        }),
+        earningRequest = axios.get(`/earn`, {
+          headers: {
+            comp: this.state.search,
+          },
+        });
       // let candleCurrencyRequest = axios.get("/candleCurrency", {
       //   headers: {
       //     rate: this.state.currency,
@@ -262,32 +266,26 @@ export default class DC extends Component {
   }
 
   render() {
-    if (this.state.user !== undefined) {
-      return (
-        <Admin
-          user={this.state.user}
-          search={this.state.search}
-          candle={this.state.candle}
-          profile={this.state.profile}
-          symbols={this.state.symbols}
-          floors={this.state.floors}
-          peers={this.state.peers}
-          peerData={this.state.peerData}
-          news={this.state.news}
-          basic={this.state.basic}
-          buy={this.state.buy}
-          earning={this.state.earning}
-          handleSymbol={this.handleSymbol}
-          handleLoading={this.handleLoading}
-          handleLogout={this.props.handleLogout}
-        />
-      );
-    } else {
-      return (
-        <div className="loading-circle">
-          <CircularProgress color="secondary" />
-        </div>
-      );
-    }
+    this.resolveUser(this.props.user);
+    console.log(this.state.userInfo);
+    return (
+      <Admin
+        user={this.state.user}
+        search={this.state.search}
+        candle={this.state.candle}
+        profile={this.state.profile}
+        symbols={this.state.symbols}
+        floors={this.state.floors}
+        peers={this.state.peers}
+        peerData={this.state.peerData}
+        news={this.state.news}
+        basic={this.state.basic}
+        buy={this.state.buy}
+        earning={this.state.earning}
+        handleSymbol={this.handleSymbol}
+        handleLoading={this.handleLoading}
+        handleLogout={this.props.handleLogout}
+      />
+    );
   }
 }

@@ -50,6 +50,7 @@ export default function Dashboard(props) {
 
     dataArr.push(period, i.estimate.toFixed(2), i.actual.toFixed(2));
     earningArr.push(dataArr);
+    return earningArr;
   });
   // Calculate the percentage different between today and yesterday
   const calculator = (a, b) => {

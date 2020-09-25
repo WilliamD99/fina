@@ -87,7 +87,7 @@ export default function ResetPassword() {
           </FormGroup>
           <div className="d-flex action-container">
             <LinkContainer to="/login">
-              <NavItem>Login</NavItem>
+              <NavItem>Back</NavItem>
             </LinkContainer>
 
             <LoaderButton

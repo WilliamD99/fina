@@ -60,12 +60,12 @@ export default function Login() {
     return fields.email.length > 0 && fields.password.length > 0;
   };
 
-  async function handleLogin(e) {
-    e.preventDefault();
-    await Auth.signIn(fields.email, fields.password);
+  // async function handleLogin(e) {
+  //   e.preventDefault();
+  //   await Auth.signIn(fields.email, fields.password);
 
-    history.push("/verify");
-  }
+  //   history.push("/verify");
+  // }
 
   async function handleSubmit(e) {
     e.preventDefault();
