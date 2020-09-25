@@ -117,6 +117,6 @@ export default function AdminNavbarLinks(props) {
       </>
     );
   } else {
-    return <h1>Fail to load</h1>;
+    return <></>;
   }
 }
