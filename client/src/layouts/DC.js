@@ -266,7 +266,6 @@ export default class DC extends Component {
   }
 
   render() {
-    this.resolveUser(this.props.user);
     return (
       <Admin
         user={this.state.user}

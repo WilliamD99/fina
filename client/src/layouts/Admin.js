@@ -38,8 +38,8 @@ export default function Admin({ ...rest }) {
       rest.news !== undefined &&
       rest.basic !== undefined &&
       rest.buy !== undefined &&
-      rest.earning !== undefined &&
-      rest.user !== undefined
+      rest.earning !== undefined
+      // rest.user !== undefined
     ) {
       return (
         <>
