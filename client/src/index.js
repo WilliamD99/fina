@@ -5,12 +5,14 @@ import { createBrowserHistory } from "history";
 
 // core components
 import App from "./App";
-
+// Init Bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 import $ from "jquery";
 import Popper from "popper.js";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "assets/css/material-dashboard-react.css?v=1.9.0";
+// Init default-passive-events
+import "default-passive-events";
 
 const hist = createBrowserHistory();
 

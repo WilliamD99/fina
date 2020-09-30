@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import DC from "layouts/DC";
 import Login from "views/Login/Login";
@@ -6,11 +6,18 @@ import Signup from "views/Signup/Signup";
 import Reset from "views/ForgetPW/ResetPW";
 import { useHistory } from "react-router-dom";
 import NotFound from "views/NotFound/NotFound";
-import { useAppContext } from "libs/contextLibs";
+import { useAppContext, AppContext } from "libs/contextLibs";
 import Verification from "views/Verification/Verification";
 import { Auth } from "aws-amplify";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default function Routes(props) {
+  const [userInfo, getUserInfo] = useState();
+  const [bol, setBol] = useState(false);
+  Auth.currentUserInfo().then((res) => {
+    bol === false ? getUserInfo(res) : setBol(true);
+  });
+
   const { handleLogout } = props;
 
   const history = useHistory();
@@ -43,7 +50,7 @@ export default function Routes(props) {
         path={`/admin/${route}`}
         render={() =>
           isAuthenticated ? (
-            <DC user={getUser()} handleLogout={handleLogout} />
+            <DC handleLogout={handleLogout} />
           ) : (
             history.push("/login")
           )
@@ -64,21 +71,24 @@ export default function Routes(props) {
       />
     );
   });
-  let getUser = async () => {
-    let user = await Auth.currentUserInfo();
-    return user;
-  };
-  // const [userInfo, getUserInfo] = React.useState();
-  // const user = Auth.currentUserInfo().then((res) => getUserInfo(res));
+  if (userInfo !== undefined) {
+    return (
+      <AppContext.Provider value={{ user: userInfo }}>
+        <Switch>
+          {authRouteConstructor}
+          {appRouteConstructor}
 
-  return (
-    <Switch>
-      {authRouteConstructor}
-      {appRouteConstructor}
-
-      <Redirect from="/" to="/login" exact />
-      <Redirect from="/admin" to="/admin/dashboard" exact />
-      <Route component={NotFound} />
-    </Switch>
-  );
+          <Redirect from="/" to="/login" exact />
+          <Redirect from="/admin" to="/admin/dashboard" exact />
+          <Route component={NotFound} />
+        </Switch>
+      </AppContext.Provider>
+    );
+  } else {
+    return (
+      <div className="loading-circle">
+        <CircularProgress />
+      </div>
+    );
+  }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, createRef, useEffect } from "react";
 import { Route } from "react-router-dom";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
@@ -21,17 +21,16 @@ import About from "views/About/About";
 import Finance from "views/TableList/TableList";
 import Profile from "views/Profile/Profile";
 
-import { AppContext } from "libs/contextLibs";
+import { AppContext, useAppContext } from "libs/contextLibs";
 
 let ps;
 
 const useStyles = makeStyles(styles);
 // This component is used to handling routes, data within the app
 export default function Admin({ ...rest }) {
-  // Get user's data
-  const [userInfo, getUserInfo] = useState();
+  const { user } = useAppContext();
 
-  let getRoutes = () => {
+  const getRoutes = () => {
     if (
       rest.candle !== undefined &&
       rest.peerData !== undefined &&
@@ -39,7 +38,6 @@ export default function Admin({ ...rest }) {
       rest.basic !== undefined &&
       rest.buy !== undefined &&
       rest.earning !== undefined
-      // rest.user !== undefined
     ) {
       return (
         <>
@@ -83,6 +81,7 @@ export default function Admin({ ...rest }) {
                   bgColor={userColor}
                   handleImageClick={handleImageClick}
                   bgImage={image}
+                  handleSettings={rest.handleSettings}
                 />
               );
             }}
@@ -102,22 +101,19 @@ export default function Admin({ ...rest }) {
   const classes = useStyles();
 
   // ref to help us initialize PerfectScrollbar on windows devices
-  const mainPanel = React.createRef();
+  const mainPanel = createRef();
   // Init color theme based on user's attributes
-  const userColor =
-    rest.user !== undefined ? rest.user["custom:color"] : "blue";
-  const [color, setColor] = React.useState(userColor);
+  const userColor = user.attributes["custom:color"];
+  const [color, setColor] = useState(userColor);
 
   // Init background image
-  const userBg =
-    rest.user !== undefined
-      ? rest.user["custom:image"]
-      : "/static/media/sidebar-3.25031690.jpg";
-  const [image, setImage] = React.useState(userBg);
+  const userBg = user.attributes["custom:image"];
+  const [image, setImage] = useState(userBg);
+
   const handleImageClick = (image) => {
     setImage(image);
   };
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleColorClick = (color) => {
     setColor(color);
@@ -135,7 +131,7 @@ export default function Admin({ ...rest }) {
     }
   };
   // initialize and destroy the PerfectScrollbar plugin
-  React.useEffect(() => {
+  useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(mainPanel.current, {
         suppressScrollX: true,
@@ -154,44 +150,41 @@ export default function Admin({ ...rest }) {
   }, [mainPanel]);
 
   return (
-    <AppContext.Provider value={{ user: userInfo }}>
-      <div className={classes.wrapper}>
-        <Sidebar
+    <div className={classes.wrapper}>
+      <Sidebar
+        routes={routes}
+        compName={rest.profile !== undefined ? rest.profile.name : ""}
+        link={rest.profile !== undefined ? rest.profile.weburl : ""}
+        image={image}
+        handleDrawerToggle={handleDrawerToggle}
+        open={mobileOpen}
+        color={color}
+        floors={rest.floors}
+        symbols={rest.symbols}
+        handleLoading={rest.handleLoading}
+        handleSymbol={rest.handleSymbol}
+      />
+      <div className={classes.mainPanel} ref={mainPanel}>
+        <Navbar
           routes={routes}
-          compName={rest.profile !== undefined ? rest.profile.name : ""}
-          userInfo={rest.user !== undefined ? rest.user : ""}
-          link={rest.profile !== undefined ? rest.profile.weburl : ""}
-          image={image}
           handleDrawerToggle={handleDrawerToggle}
-          open={mobileOpen}
-          color={color}
           floors={rest.floors}
           symbols={rest.symbols}
           handleLoading={rest.handleLoading}
           handleSymbol={rest.handleSymbol}
+          handleDrawerToggle={handleDrawerToggle}
+          handleLogout={rest.handleLogout}
         />
-        <div className={classes.mainPanel} ref={mainPanel}>
-          <Navbar
-            routes={routes}
-            handleDrawerToggle={handleDrawerToggle}
-            floors={rest.floors}
-            symbols={rest.symbols}
-            handleLoading={rest.handleLoading}
-            handleSymbol={rest.handleSymbol}
-            handleDrawerToggle={handleDrawerToggle}
-            handleLogout={rest.handleLogout}
-          />
-          {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
-          {getRoute() ? (
-            <div className={classes.content}>
-              <div className={classes.container}>{switchRoutes}</div>
-            </div>
-          ) : (
-            <div className={classes.map}>{switchRoutes}</div>
-          )}
-          {getRoute() ? <Footer /> : null}
-        </div>
+        {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
+        {getRoute() ? (
+          <div className={classes.content}>
+            <div className={classes.container}>{switchRoutes}</div>
+          </div>
+        ) : (
+          <div className={classes.map}>{switchRoutes}</div>
+        )}
+        {getRoute() ? <Footer /> : null}
       </div>
-    </AppContext.Provider>
+    </div>
   );
 }

@@ -25,7 +25,6 @@ export default function Sidebar(props) {
     return window.location.href.indexOf(routeName) > -1 ? true : false;
   }
   const {
-    userInfo,
     compName,
     color,
     image,

@@ -4,7 +4,7 @@ import Chart from "react-apexcharts";
 export default function ClosingChart(props) {
   let dataArr = props.data.map((val) => {
     let timestamp = val[0],
-      close = val[4];
+      close = val[4].toFixed(2);
     return [timestamp, close];
   });
   // setCandlePeer(
