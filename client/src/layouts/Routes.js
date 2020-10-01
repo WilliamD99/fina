@@ -14,9 +14,13 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 export default function Routes(props) {
   const [userInfo, getUserInfo] = useState();
   const [bol, setBol] = useState(false);
-  Auth.currentUserInfo().then((res) => {
-    bol === false ? getUserInfo(res) : setBol(true);
-  });
+  // Force the app to stop re-render after getting user's info
+  if (userInfo === undefined) {
+    Auth.currentUserInfo().then((res) => {
+      bol === false ? getUserInfo(res) : setBol(true);
+      setBol(true);
+    });
+  }
 
   const { handleLogout } = props;
 
