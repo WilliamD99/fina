@@ -77,16 +77,16 @@ export default function Routes(props) {
   });
   if (userInfo !== undefined) {
     return (
-      <AppContext.Provider value={{ user: userInfo }}>
-        <Switch>
-          {authRouteConstructor}
+      <Switch>
+        {authRouteConstructor}
+        <AppContext.Provider value={{ user: userInfo }}>
           {appRouteConstructor}
+        </AppContext.Provider>
 
-          <Redirect from="/" to="/login" exact />
-          <Redirect from="/admin" to="/admin/dashboard" exact />
-          <Route component={NotFound} />
-        </Switch>
-      </AppContext.Provider>
+        <Redirect from="/" to="/login" exact />
+        <Redirect from="/admin" to="/admin/dashboard" exact />
+        <Route component={NotFound} />
+      </Switch>
     );
   } else {
     return (

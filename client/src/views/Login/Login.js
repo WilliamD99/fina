@@ -33,6 +33,7 @@ Amplify.configure(config);
 export default function Login() {
   const history = useHistory();
   const { userHasAuthenticated } = useAppContext();
+  console.log(userHasAuthenticated);
   // Snackbar
   const [bc, setBC] = useState(false);
   const [contents, setContents] = useState();
@@ -76,6 +77,7 @@ export default function Login() {
       userHasAuthenticated(true);
     } catch (e) {
       let err = onError(e);
+      console.log(e);
       err === "User is not confirmed."
         ? history.push("/verify")
         : showNotification("bc", err);
