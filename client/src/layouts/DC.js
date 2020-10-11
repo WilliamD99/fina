@@ -1,16 +1,27 @@
 import React, { Component } from "react";
 import Admin from "./Admin";
 import axios from "axios";
+import { Auth } from "aws-amplify";
 
 export default class DC extends Component {
+  resolveUser = async (data) => {
+    let userInfo = await data;
+    this.setState({
+      userInfo: userInfo,
+    });
+  };
+
   state = {
     search: "AAPL",
     floor: "US",
+    userInfo: "",
   };
-  // Use this function to handle searching
+
+  // Handle search function
   handleSymbol = (e) => {
     this.setState({ search: e });
   };
+
   handleLoading = () => {
     this.setState({
       candle: undefined,
@@ -24,6 +35,7 @@ export default class DC extends Component {
   };
 
   quoteRoute = `/quote`;
+
   candleRequest = axios.get(`/candle`, {
     headers: {
       comp: this.state.search,
@@ -65,7 +77,12 @@ export default class DC extends Component {
       comp: this.state.search,
     },
   });
-
+  // Get current user info
+  user = Auth.currentUserInfo().then((res) => {
+    this.setState({
+      user: res.attributes,
+    });
+  });
   componentDidMount() {
     axios
       .all([
@@ -82,27 +99,27 @@ export default class DC extends Component {
       ])
       .then(
         axios.spread((...res) => {
-          // const candleData = res[0].data;
-          // const profileData = res[1].data;
-          // const symbolsData = res[2].data;
-          // const floors = res[3].data;
-          // const peers = res[4].data;
-          // const news = res[5].data;
-          // const basic = res[6].data;
-          // const buy = res[7].data;
-          // const earning = res[8].data;
+          const candleData = res[0].data;
+          const profileData = res[1].data;
+          const symbolsData = res[2].data;
+          const floors = res[3].data;
+          const peers = res[4].data;
+          const news = res[5].data;
+          const basic = res[6].data;
+          const buy = res[7].data;
+          const earning = res[8].data;
           // const candleCurrency = res[9].data;
 
           this.setState({
-            candle: res[0].data,
-            profile: res[1].data,
-            symbols: res[2].data,
-            floors: res[3].data,
-            peers: res[4].data,
-            news: res[5].data,
-            basic: res[6].data,
-            buy: res[7].data,
-            earning: res[8].data,
+            candle: candleData,
+            profile: profileData,
+            symbols: symbolsData,
+            floors: floors,
+            peers: peers,
+            news: news,
+            basic: basic,
+            buy: buy,
+            earning: earning,
             // candleC: candleCurrency,
           });
         })
@@ -148,10 +165,10 @@ export default class DC extends Component {
     // } else if (prevState.search !== this.state.search) {
     if (prevState.search !== this.state.search) {
       let candleRequest = axios.get(`/candle`, {
-          headers: {
-            comp: this.state.search,
-          },
-        }),
+        headers: {
+          comp: this.state.search,
+        },
+      }),
         profileRequest = axios.get(`/profile`, {
           headers: {
             comp: this.state.search,
@@ -200,23 +217,23 @@ export default class DC extends Component {
         ])
         .then(
           axios.spread((...res) => {
-            // const candleData = res[0].data;
-            // const profileData = res[1].data;
-            // const peers = res[2].data;
-            // const news = res[3].data;
-            // const basic = res[4].data;
-            // const buy = res[5].data;
-            // const earning = res[6].data;
+            const candleData = res[0].data;
+            const profileData = res[1].data;
+            const peers = res[2].data;
+            const news = res[3].data;
+            const basic = res[4].data;
+            const buy = res[5].data;
+            const earning = res[6].data;
             // const candleCurrency = res[7].data;
 
             this.setState({
-              candle: res[0].data,
-              profile: res[1].data,
-              peers: res[2].data,
-              news: res[3].data,
-              basic: res[4].data,
-              buy: res[5].data,
-              earning: res[6].data,
+              candle: candleData,
+              profile: profileData,
+              peers: peers,
+              news: news,
+              basic: basic,
+              buy: buy,
+              earning: earning,
               // candleC: candleCurrency,
             });
           })
