@@ -12,13 +12,14 @@ export default class DC extends Component {
   };
 
   state = {
-    search: "AAPL",
+    search: this.props.comp,
     floor: "US",
     userInfo: "",
   };
 
   // Handle search function
   handleSymbol = (e) => {
+    this.props.searchComp(e)
     this.setState({ search: e });
   };
 

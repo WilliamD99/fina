@@ -6,7 +6,7 @@ import Signup from "views/Signup/Signup";
 import Reset from "views/ForgetPW/ResetPW";
 import { useHistory } from "react-router-dom";
 import NotFound from "views/NotFound/NotFound";
-import { useAppContext, AppContext } from "libs/contextLibs";
+import { useAppContext } from "libs/contextLibs";
 import Verification from "views/Verification/Verification";
 import { Auth } from "aws-amplify";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -14,6 +14,10 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 export default function Routes(props) {
   const [userInfo, getUserInfo] = useState();
   const [bol, setBol] = useState(false);
+  const [comp, setComp] = useState("AAPL")
+  const searchComp = (e) => {
+    setComp(e)
+  }
   // Force the app to stop re-render after getting user's info
   if (userInfo === undefined) {
     Auth.currentUserInfo().then((res) => {
@@ -54,7 +58,7 @@ export default function Routes(props) {
         path={`/admin/${route}`}
         render={() =>
           isAuthenticated ? (
-            <DC handleLogout={handleLogout} />
+            <DC searchComp={searchComp} comp={comp} handleLogout={handleLogout} />
           ) : (
             history.push("/login")
           )
