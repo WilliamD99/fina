@@ -99,7 +99,8 @@ export default function Sidebar(props) {
         })} side-name`}
         target="_blank"
       >
-        {compName}
+        {/* {compName} */}
+        Fina
       </a>
     </div>
   );
